@@ -1,0 +1,20 @@
+body {
+  background-color: wheat;
+}
+.nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-items {
+  list-style: none;
+  display: flex;
+}
+
+.nav-items > li {
+  padding: 20px;
+}
+
+.nav-logo {
+  width: 100px;
+}
