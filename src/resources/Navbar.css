@@ -1,0 +1,17 @@
+.Navbar {
+    background-color: #D1F2EB;
+  }
+
+.profile-placeholder {
+    width: 75px;
+    height: 75px;
+    clip-path: circle();
+}
+
+.Profile {
+    display: flex;
+    align-items: center;
+    background-color: #F8F9F9;
+    clip-path: circle();
+    border: 10px solid #F8F9F9;
+}
