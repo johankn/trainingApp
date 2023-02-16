@@ -12,6 +12,7 @@ function App() {
   return (
     <Router> 
       <Routes>
+        <Route path="/mainpage" element={<MainPage setIsAuth={setIsAuth}/>} />
         <Route path="/" element={<Login setIsAuth={setIsAuth}/>} />
         <Route path="/registration" element={<Registration setIsAuth={setIsAuth}/>} />
 
