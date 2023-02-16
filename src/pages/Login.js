@@ -3,6 +3,7 @@ import { auth } from "../firebase-config";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import "../resources/login.css";
 import Navbar from "../components/Navbar";
+import {useNavigate} from "react-router-dom";
 
 function Login({ setIsAuth }) {
   const [email, setEmail] = useState(null);
@@ -23,6 +24,12 @@ function Login({ setIsAuth }) {
         console.log(errorCode, errorMessage);
       });
   };
+
+  const navigate = useNavigate();
+
+  const toRegistration = () => {
+    navigate("/registration");
+  }
 
   return (
     <form>
@@ -46,6 +53,8 @@ function Login({ setIsAuth }) {
         placeholder="Password"
       ></input>
       <input onClick={onLogin} type="submit" value="Login"></input>
+      <input onClick={toRegistration} type="submit" value="New user? Register here"></input>
+
     </form>
   );
 }
