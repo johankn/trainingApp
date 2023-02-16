@@ -1,28 +1,34 @@
 import React, { useState } from "react";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../firebase-config";
 import Navbar from "../components/Navbar";
 import "../resources/Registration.css"
 
 
-function Registration({ setIsAuth }) {
-  // const [email, setEmail] = useState(null);
-  // const [password, setPassword] = useState(null);
+function Registration({ isAuth }) {
 
-  // const onRegistration = (e) => {
-  //   e.preventDefault();
-  //   signInWithEmailAndPassword(auth, email, password)
-  //     .then((userCredential) => {
-  //       // Signed in
-  //       const user = userCredential.user;
-  //       //setIsAuth(true);
-  //       console.log(user);
-  //     })
-  //     .catch((error) => {
-  //       const errorCode = error.code;
-  //       const errorMessage = error.message;
-  //       console.log(errorCode, errorMessage);
-  //     });
-  // };
+  const [username, setUsername] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
+
+  const onRegister = (e) => {
+    e.preventDefault();
+    createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in
+      const user = userCredential.user;
+      const update = {
+        displayName: username,
+      };
+      updateProfile(user, update);
+      window.location.pathname = "/login";
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+    })
+  }
 
   return (
     <form>
@@ -39,33 +45,39 @@ function Registration({ setIsAuth }) {
           </div>
 
           <div className="SingleRegistrationField">
-            <label> Username </label>
-            <input
-              type="Username"
-              id="Username"
-              className="form__input"
-              placeholder="Username"
-            ></input>
+          <label> Username </label>
+      <input
+        type="Username"
+        id="Username"
+        className="form__input"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        placeholder="Username"
+      ></input>
           </div>
           
           <div className="SingleRegistrationField">
-            <label> Email </label>
-            <input
-              type="email"
-              id="email"
-              className="form__input"
-              placeholder="Email"
-            ></input>
+          <label> Email </label>
+      <input
+        type="email"
+        id="email"
+        className="form__input"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="Email"
+      ></input>
           </div>
 
           <div className="SingleRegistrationField">
-            <label> Password </label>
-            <input
-              className="form__input"
-              type="password"
-              id="password"
-              placeholder="Password"
-            ></input>
+          <label> Password </label>
+      <input
+        className="form__input"
+        type="password"
+        id="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder="Password"
+      ></input>
           </div>
           
           <div className="SingleRegistrationField">
@@ -80,7 +92,7 @@ function Registration({ setIsAuth }) {
 
           <div className="SingleRegistrationField">
             <center>
-              <input type="submit" value="Register" className="RegisterButton"></input>
+              <input type="submit" value="Register" className="RegisterButton" onClick={onRegister}></input>
             </center> 
           </div>
         </div>
@@ -89,6 +101,7 @@ function Registration({ setIsAuth }) {
           <img src= "./profile.gif" alt = "Profile-Placeholder" />
         </div>
       </div>
+
     </form>
   );
 }
