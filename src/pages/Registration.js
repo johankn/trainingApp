@@ -21,7 +21,7 @@ function Registration({ isAuth }) {
         displayName: username,
       };
       updateProfile(user, update);
-      window.location.pathname = "/login";
+      window.location.pathname = "/";
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -78,6 +78,7 @@ function Registration({ isAuth }) {
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
       ></input>
+<<<<<<< HEAD
           </div>
           
           <div className="SingleRegistrationField">
@@ -102,6 +103,9 @@ function Registration({ isAuth }) {
         </div>
       </div>
 
+=======
+      <input onClick={onRegister} type="submit" value="Register"></input>
+>>>>>>> 37164ef (added states for registration form, and firebase method createUserWithEmailAndPassword)
     </form>
   );
 }
