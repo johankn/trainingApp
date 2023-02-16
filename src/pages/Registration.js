@@ -68,14 +68,15 @@ function Registration({ setIsAuth }) {
             ></input>
           </div>
           
-
-              {/* <label> Confirm password </label>
-        <input
-          className="form__input"
-          type="Confirm password"
-          id="Confirm password"
-          placeholder="Confirm password"
-        ></input> */}
+          <div className="SingleRegistrationField">
+            <label> Confirm password </label>
+            <input
+              className="form__input"
+              type="Confirm password"
+              id="Confirm password"
+              placeholder="Confirm password"
+            ></input>
+          </div>
 
           <div className="SingleRegistrationField">
             <center>
