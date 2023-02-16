@@ -1,6 +1,7 @@
 import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
 import Login from './pages/Login';
-import MainPage from "./pages/MainPage";
+import Registration from './pages/Registration';
+
 import { useState } from "react";
 import { auth } from "./firebase-config";
 
@@ -13,6 +14,8 @@ function App() {
       <Routes>
         <Route path="/mainpage" element={<MainPage setIsAuth={setIsAuth}/>} />
         <Route path="/" element={<Login setIsAuth={setIsAuth}/>} />
+        <Route path="/registration" element={<Registration setIsAuth={setIsAuth}/>} />
+
       </Routes>
     </Router>
   );
