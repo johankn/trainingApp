@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { auth } from "../firebase-config";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import '../resources/login.css';
-import Navbar from '../components/Navbar';
-
-
+import "../resources/login.css";
+import Navbar from "../components/Navbar";
 
 function Login({ setIsAuth }) {
   const [email, setEmail] = useState(null);
@@ -26,24 +24,27 @@ function Login({ setIsAuth }) {
       });
   };
 
-  return(
-
-    <form>  
-      <Navbar/>
+  return (
+    <form>
+      <Navbar />
       <label> Email </label>
-      <input            type="email"
-            id="email"
-            className="form__input"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email"></input>
+      <input
+        type="email"
+        id="email"
+        className="form__input"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="Email"
+      ></input>
       <label> Password </label>
-      <input            className="form__input"
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"></input>
+      <input
+        className="form__input"
+        type="password"
+        id="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder="Password"
+      ></input>
       <input onClick={onLogin} type="submit" value="Login"></input>
     </form>
   );
