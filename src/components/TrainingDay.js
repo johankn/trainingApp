@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function TrainingProgram() {
+function TrainingDay() {
   const [exercises, setExercises] = useState([]);
 
   const [newExercise, setNewExercise] = useState({
@@ -70,4 +70,4 @@ function TrainingProgram() {
   );
 };
 
-export default TrainingProgram;
+export default TrainingDay;
