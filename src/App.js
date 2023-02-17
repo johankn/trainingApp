@@ -15,7 +15,6 @@ function App() {
         <Route path="/mainpage" element={<MainPage setIsAuth={setIsAuth}/>} />
         <Route path="/" element={<Login setIsAuth={setIsAuth}/>} />
         <Route path="/registration" element={<Registration isAuth={isAuth}/>} />
-
       </Routes>
     </Router>
   );
