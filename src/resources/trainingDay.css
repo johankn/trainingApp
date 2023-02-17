@@ -1,0 +1,107 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+}
+
+.training-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+label {
+  margin-bottom: 10px;
+}
+
+input {
+  margin-left: 10px;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5);
+}
+
+button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  background-color: blue;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: darkblue;
+}
+
+.exerciselist {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.exercise {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.exercise h3 {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.exercise p {
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
+.weekday-container {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin-top: 20px;
+}
+
+.weekday-button {
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.selected-weekday {
+  margin-top: 20px;
+  font-size: 24px;
+}
+.day-selector {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.day-selector button {
+  margin: 10px;
+}
+
