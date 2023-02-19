@@ -32,6 +32,11 @@ function TrainingProgram() {
       return;
     }
     const id = trainingDays[currentDayIndex].exercises.length + 1;
+    // Validate exercise name
+    if (!/^[A-Za-z\s]+$/.test(newExercise.name)) {
+      alert("Exercise name must only contain letters and spaces.");
+      return;
+    }
     const exercise = { id, ...newExercise };
     const updatedTrainingDays = [...trainingDays];
     updatedTrainingDays[currentDayIndex].exercises.push(exercise);
