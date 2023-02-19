@@ -27,7 +27,16 @@ function TrainingProgram() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    // Check if any input fields are empty
+    if (!newExercise.name || !newExercise.sets || !newExercise.reps) {
+      return;
+    }
     const id = trainingDays[currentDayIndex].exercises.length + 1;
+    // Validate exercise name
+    if (!/^[A-Za-z\s]+$/.test(newExercise.name)) {
+      alert("Exercise name must only contain letters and spaces.");
+      return;
+    }
     const exercise = { id, ...newExercise };
     const updatedTrainingDays = [...trainingDays];
     updatedTrainingDays[currentDayIndex].exercises.push(exercise);
@@ -35,28 +44,23 @@ function TrainingProgram() {
     setNewExercise({ name: "", sets: "", reps: "" });
   };
 
+  const handleDelete = (id) => {
+    const updatedTrainingDays = [...trainingDays];
+    updatedTrainingDays[currentDayIndex].exercises = updatedTrainingDays[
+      currentDayIndex
+    ].exercises.filter((exercise) => exercise.id !== id);
+    setTrainingDays(updatedTrainingDays);
+  };
+
   const exerciseList = trainingDays[currentDayIndex].exercises.map(
     (exercise) => (
       <div key={exercise.id}>
         <h3>{exercise.name}</h3>
         <p>{`Sets: ${exercise.sets} Reps: ${exercise.reps}`}</p>
+        <button onClick={() => handleDelete(exercise.id)}>Delete</button>
       </div>
     )
   );
-
-  const handleNextDay = () => {
-    const nextDayIndex = currentDayIndex + 1;
-    if (nextDayIndex < trainingDays.length) {
-      setCurrentDayIndex(nextDayIndex);
-    }
-  };
-
-  const handlePreviousDay = () => {
-    const previousDayIndex = currentDayIndex - 1;
-    if (previousDayIndex >= 0) {
-      setCurrentDayIndex(previousDayIndex);
-    }
-  };
 
   const handleSelectDay = (dayIndex) => {
     setCurrentDayIndex(dayIndex);
