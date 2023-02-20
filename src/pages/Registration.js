@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../firebase-config";
 import "../resources/loginRegistration.css";
+
+
+
 function Registration() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -47,6 +50,14 @@ function Registration() {
     }
   }
 
+  function print_error() {
+    if (errorMessage != "") {
+      return <div className="error"> {errorMessage} </div>;
+    } else {
+      return <div><br></br><br></br></div>;
+    }
+  }
+
   return (
     <form>
       <div className="main-page">
@@ -87,12 +98,10 @@ function Registration() {
           ></input>
         </div>
 
-        <div className="SingleRegistrationField">
-            {errorMessage && <div className="error"> {errorMessage} </div>}
+        <div>
+            {print_error()}
         </div>
-
-        <br></br>
-        <br></br>
+        
         <input onClick={onRegister} type="submit" value="Register" className="submit"></input>
       </div>
     </form>
