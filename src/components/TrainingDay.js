@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import "../resources/trainingDay.css";
+import {useNavigate} from "react-router-dom";
+import { addDoc, collection } from "firebase/firestore";
+import { db, auth } from "../firebase-config";
+
 
 function TrainingProgram() {
   const [trainingDays, setTrainingDays] = useState([
@@ -13,6 +17,8 @@ function TrainingProgram() {
   ]);
 
   const [currentDayIndex, setCurrentDayIndex] = useState(0);
+
+  const [title, setTitle] = useState("");
 
   const [newExercise, setNewExercise] = useState({
     name: "",
@@ -65,6 +71,22 @@ function TrainingProgram() {
   const handleSelectDay = (dayIndex) => {
     setCurrentDayIndex(dayIndex);
   };
+
+  const trainingProgramsCollectionRef = collection(db, "trainingPrograms");
+
+  const navigate = useNavigate();
+
+  const makeProgram = async () => {
+    if (title === "") {
+      return;
+    }
+    addDoc(trainingProgramsCollectionRef, {
+     title,
+     trainingDays,
+     author: { name: auth.currentUser.displayName, id: auth.currentUser.uid },
+   });
+   navigate("/mainpage");
+ }
 
   return (
     <div className="main-page">

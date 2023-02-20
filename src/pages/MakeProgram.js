@@ -9,6 +9,7 @@ function MakeProgram({isAuth}){
   const toLogin = () => {
     navigate("/");
   }
+  
 
   if (isAuth) {
     return(
