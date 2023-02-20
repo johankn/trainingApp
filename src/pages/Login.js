@@ -8,6 +8,8 @@ function Login({ setIsAuth }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [errorMessage, setErrorMessage] = useState('');
+
   const onLogin = (e) => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
@@ -23,8 +25,23 @@ function Login({ setIsAuth }) {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
+        setErrorMessage(mapAuthCodeToMessage(error.code));
       });
   };
+
+  function mapAuthCodeToMessage(authCode) {
+    switch (authCode) {
+      case "auth/wrong-password":
+        return "Wrong password";
+      case "auth/user-not-found":
+        return "Email can not be found";
+
+      // Many more authCode mapping here...
+
+      default:
+        return "";
+    }
+  }
 
   const navigate = useNavigate();
 
@@ -56,6 +73,9 @@ function Login({ setIsAuth }) {
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
       ></input>
+      <div className="SingleRegistrationField">
+            {errorMessage && <div className="error"> {errorMessage} </div>}
+          </div>
       <input onClick={onLogin} type="button" value="Login"></input>
       <input onClick={toRegistration} type="submit" value="New user? Register here"></input>
 
