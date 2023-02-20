@@ -37,28 +37,38 @@ function Login({ setIsAuth }) {
   }
 
   return (
-    <form>
-      <label> Email </label>
-      <input
-        type="email"
-        id="email"
-        className="form__input"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-      ></input>
-      <label> Password </label>
-      <input
-        className="form__input"
-        type="password"
-        id="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-      ></input>
-      <input onClick={onLogin} type="button" value="Login"></input>
-      <input onClick={toRegistration} type="submit" value="New user? Register here"></input>
-
+    <form className="login-page">
+      <div className="center">
+        <p className="title">Train With Me</p>
+        <br></br>
+        <br></br>
+        <input
+          type="email"
+          id="email"
+          className="login-field"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+        ></input>
+        <br></br>
+        <br></br>
+        <input
+          className="login-field"
+          type="password"
+          id="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+        ></input>
+        <br></br>
+        <br></br>
+        <br></br>
+        <input onClick={onLogin} type="button" value="Login" className="submit"></input>
+        <br></br>
+        <br></br>
+        <br></br>
+        <input onClick={toRegistration} type="submit" value="New user? Register here" className="submit"></input>
+      </div>
     </form>
   );
 }

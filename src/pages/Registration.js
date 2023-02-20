@@ -30,18 +30,9 @@ function Registration() {
   return (
     <form>
       <div className="RegistrationPage">
-        <div className="CommercialField">
-          <img src="./profile.gif" alt="Profile-Placeholder" />
-        </div>
 
-        <div className="RegistrationFields">
-          <div className="SingleRegistrationField">
-            <h1>User registration</h1>
-            <p></p>
-          </div>
-
-          <div className="SingleRegistrationField">
-            <label> Username </label>
+        <div className="SingleRegistrationField">
+          <label> Username </label>
             <input
               type="Username"
               id="Username"
@@ -50,36 +41,35 @@ function Registration() {
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Username"
             ></input>
-          </div>
-
-          <div className="SingleRegistrationField">
-            <label> Email </label>
-            <input
-              type="email"
-              id="email"
-              className="form__input"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email"
-            ></input>
-          </div>
-
-          <div className="SingleRegistrationField">
-            <label> Password </label>
-            <input
-              className="form__input"
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Password"
-            ></input>
-          </div>
-          <input onClick={onRegister} type="submit" value="Register"></input>
         </div>
-        <div className="CommercialField">
-          <img src="./profile.gif" alt="Profile-Placeholder" />
+
+        <div className="SingleRegistrationField">
+          <label> Email </label>
+          <input
+            type="email"
+            id="email"
+            className="form__input"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+          ></input>
         </div>
+
+        <div className="SingleRegistrationField">
+          <label> Password </label>
+          <input
+            className="form__input"
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+          ></input>
+        </div>
+
+        <br></br>
+        <br></br>
+        <input onClick={onRegister} type="submit" value="Register" className="submit-registration"></input>
       </div>
     </form>
   );

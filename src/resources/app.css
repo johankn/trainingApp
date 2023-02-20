@@ -1,3 +1,24 @@
+body {
+  background-color: #F8F9F9;
+}
+.nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-items {
+  list-style: none;
+  display: flex;
+}
+
+.nav-items > li {
+  padding: 20px;
+}
+
+.nav-logo {
+  width: 100px;
+}
+
 .nav {
   background-color: rgb(98, 168, 192);
 }
@@ -9,8 +30,6 @@
 }
 
 .Profile {
-  display: flex;
-  align-items: center;
   background-color: #F8F9F9;
   clip-path: circle();
   border: 10px solid #F8F9F9;
