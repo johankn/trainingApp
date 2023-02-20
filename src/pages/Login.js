@@ -8,6 +8,8 @@ function Login({ setIsAuth }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [errorMessage, setErrorMessage] = useState('');
+
   const onLogin = (e) => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
@@ -23,8 +25,33 @@ function Login({ setIsAuth }) {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
+        setErrorMessage(mapAuthCodeToMessage(error.code));
       });
   };
+
+  function mapAuthCodeToMessage(authCode) {
+    switch (authCode) {
+      case "auth/wrong-password":
+        return "Wrong password";
+      case "auth/user-not-found":
+        return "Email can not be found";
+      case "auth/invalid-email":
+        return "You need to input a valid email";
+
+      // Many more authCode mapping here...
+
+      default:
+        return "";
+    }
+  }
+
+  function print_error() {
+    if (errorMessage != "") {
+      return <div className="error"> {errorMessage} </div>;
+    } else {
+      return <div><br></br><br></br></div>;
+    }
+  }
 
   const navigate = useNavigate();
 
@@ -58,9 +85,11 @@ function Login({ setIsAuth }) {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
         ></input>
-        <br></br>
-        <br></br>
-        <br></br>
+
+        <div>
+          {print_error()}
+        </div>
+
         <input onClick={onLogin} type="button" value="Login" className="submit"></input>
         <br></br>
         <br></br>
