@@ -91,7 +91,8 @@ function TrainingProgram() {
             value={newExercise.name}
             onChange={handleInputChange}
           />
-          <br />
+          <br></br>
+          <br></br>
           <label>Sets:</label>
           <br></br>
             <input
@@ -100,7 +101,8 @@ function TrainingProgram() {
               value={newExercise.sets}
               onChange={handleInputChange}
             />
-          <br />
+          <br></br>
+          <br></br>
           <label>Reps:</label>
           <br></br>
             <input

@@ -33,9 +33,9 @@ function App() {
             )}
           </li>
         </ul>
-        <div className="Profile">
+        <div className="profile">
           <img
-            src="./profile.gif"
+            src="./logo192.png"
             alt="Profile-Placeholder"
             className="profile-placeholder"
           />
