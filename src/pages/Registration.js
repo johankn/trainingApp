@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../firebase-config";
-import Navbar from "../components/Navbar";
 import "../resources/Registration.css";
 
-function Registration({ isAuth }) {
-  const [username, setUsername] = useState(null);
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
+function Registration() {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const onRegister = (e) => {
     e.preventDefault();
@@ -30,7 +29,6 @@ function Registration({ isAuth }) {
 
   return (
     <form>
-      <Navbar />
       <div className="RegistrationPage">
         <div className="CommercialField">
           <img src="./profile.gif" alt="Profile-Placeholder" />
