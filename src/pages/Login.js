@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import { auth } from "../firebase-config";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import "../resources/login.css";
-import Navbar from "../components/Navbar";
 import {useNavigate} from "react-router-dom";
 
 function Login({ setIsAuth }) {
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const onLogin = (e) => {
     e.preventDefault();
@@ -15,7 +14,9 @@ function Login({ setIsAuth }) {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        //setIsAuth(true);
+        setIsAuth(true);
+        localStorage.setItem("isAuth", true);
+        toMainPage();
         console.log(user);
       })
       .catch((error) => {
@@ -31,9 +32,12 @@ function Login({ setIsAuth }) {
     navigate("/registration");
   }
 
+  const toMainPage = () => {
+    navigate("/mainpage");
+  }
+
   return (
     <form>
-      <Navbar />
       <label> Email </label>
       <input
         type="email"
@@ -52,7 +56,7 @@ function Login({ setIsAuth }) {
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
       ></input>
-      <input onClick={onLogin} type="submit" value="Login"></input>
+      <input onClick={onLogin} type="button" value="Login"></input>
       <input onClick={toRegistration} type="submit" value="New user? Register here"></input>
 
     </form>
@@ -60,3 +64,4 @@ function Login({ setIsAuth }) {
 }
 
 export default Login;
+
