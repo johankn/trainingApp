@@ -43,6 +43,9 @@ function Registration() {
       case "auth/invalid-email":
         return "Email provided is invalid";
 
+      case "auth/email-already-in-use":
+        return "The email is already in use"
+        
       // Many more authCode mapping here...
 
       default:
@@ -101,7 +104,7 @@ function Registration() {
         <div>
             {print_error()}
         </div>
-        
+
         <input onClick={onRegister} type="submit" value="Register" className="submit"></input>
       </div>
     </form>
