@@ -1,107 +1,67 @@
-/* .App {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 50vh;
-}
-
-.training-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.form-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 20px;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-label {
-  margin-bottom: 10px;
-}
-
-input {
-  margin-left: 10px;
-  padding: 5px;
-  border-radius: 5px;
-  border: none;
-  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5);
-}
-
-button {
-  margin-top: 10px;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  background-color: blue;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: darkblue;
-}
-
-.exerciselist {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.exercise {
-  margin-top: 10px;
-  padding: 10px;
-  border: 1px solid black;
-  border-radius: 5px;
+.main-page{
   text-align: center;
 }
 
-.exercise h3 {
-  margin-top: 0;
-  margin-bottom: 5px;
+.training-title {
+  font-size: 40px;
+  font-weight: 900;
+  color: rgba(74,169,198,255);
+  letter-spacing: 1px;
 }
 
-.exercise p {
-  margin-top: 5px;
-  margin-bottom: 0;
+.current-day{
+  font-size: 30px;
+  font-weight: 900;
+  color: rgba(74,169,198,255);
+  letter-spacing: 1px;
 }
 
-.weekday-container {
-  display: flex;
-  justify-content: space-between;
-  width: 80%;
-  margin-top: 20px;
+.submit{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    width: 20%;
+    height: 50px;
+    border: 1px solid black;
+    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
+    border-radius: 4px;
+    margin-top: 10px;
 }
 
-.weekday-button {
-  padding: 10px;
+.select-day {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  width: 12%;
+  height: 50px;
   border: 1px solid black;
-  border-radius: 5px;
-  cursor: pointer;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
+  border-radius: 4px;
+  margin-top: 10px;
+  margin-right: 25px;
 }
 
-.selected-weekday {
-  margin-top: 20px;
-  font-size: 24px;
-}
-.day-selector {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-top: 20px;
+.select-day:hover {
+  transform: translateY(-2px);
+  background-color: lightblue;
 }
 
-.day-selector button {
-  margin: 10px;
+.select-day:active {
+  box-shadow: #D6D6E7 0 3px 7px inset;
+  transform: translateY(2px);
 }
- */
+
+.training-form > input{
+  width: 30%;
+  border-radius: 12px;
+  box-sizing: border-box;
+  border-color: black;
+  font-size: 18px;
+  height: 40px;
+  outline: 0;
+  padding: 4px 20px 0;
+}
+
+.training-form > label{
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
