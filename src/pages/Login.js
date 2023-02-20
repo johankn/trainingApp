@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { auth } from "../firebase-config";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import "../resources/login.css";
+import "../resources/loginRegistration.css";
 import {useNavigate} from "react-router-dom";
 
 function Login({ setIsAuth }) {
@@ -37,28 +37,36 @@ function Login({ setIsAuth }) {
   }
 
   return (
-    <form>
-      <label> Email </label>
-      <input
-        type="email"
-        id="email"
-        className="form__input"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-      ></input>
-      <label> Password </label>
-      <input
-        className="form__input"
-        type="password"
-        id="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-      ></input>
-      <input onClick={onLogin} type="button" value="Login"></input>
-      <input onClick={toRegistration} type="submit" value="New user? Register here"></input>
-
+    <form className="main-page">
+      <div className="center">
+        <p className="title">Train With Me</p>
+        <input
+          type="email"
+          id="email"
+          className="submit-field"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+        ></input>
+        <br></br>
+        <br></br>
+        <input
+          className="submit-field"
+          type="password"
+          id="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+        ></input>
+        <br></br>
+        <br></br>
+        <br></br>
+        <input onClick={onLogin} type="button" value="Login" className="submit"></input>
+        <br></br>
+        <br></br>
+        <br></br>
+        <input onClick={toRegistration} type="submit" value="New user? Register here" className="submit"></input>
+      </div>
     </form>
   );
 }

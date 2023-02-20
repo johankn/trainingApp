@@ -22,11 +22,8 @@ function App() {
   return (
     <Router>
       <nav className="nav">
-        <img src="./logo192.png" alt="Hutao Smirc" className="nav-logo" />
+        <img src="./logo192.png" alt="Logo" className="nav-logo" />
         <ul className="nav-items">
-          <li> Thing 1 </li>
-          <li> Thing 2 </li>
-          <li> Thing 3 </li>
           <li>
             {" "}
             {!isAuth ? (
