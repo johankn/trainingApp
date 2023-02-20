@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { auth } from "../firebase-config";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import "../resources/login.css";
+import "../resources/loginRegistration.css";
 import {useNavigate} from "react-router-dom";
 
 function Login({ setIsAuth }) {
@@ -37,15 +37,13 @@ function Login({ setIsAuth }) {
   }
 
   return (
-    <form className="login-page">
+    <form className="main-page">
       <div className="center">
         <p className="title">Train With Me</p>
-        <br></br>
-        <br></br>
         <input
           type="email"
           id="email"
-          className="login-field"
+          className="submit-field"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
@@ -53,7 +51,7 @@ function Login({ setIsAuth }) {
         <br></br>
         <br></br>
         <input
-          className="login-field"
+          className="submit-field"
           type="password"
           id="password"
           value={password}

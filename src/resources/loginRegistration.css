@@ -1,4 +1,4 @@
-.login-page{
+.main-page{
   text-align: center;
 }
 
@@ -6,11 +6,11 @@
   font-size: 40px;
   margin-top: 80px;
   font-weight: 900;
-  color: #1DA1F2;
+  color: rgba(74,169,198,255);
   letter-spacing: 1px;
 }
 
-.login-field {
+.submit-field {
   width: 30%;
   border-radius: 12px;
   box-sizing: border-box;

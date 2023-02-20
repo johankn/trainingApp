@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../firebase-config";
-import "../resources/Registration.css";
-
+import "../resources/loginRegistration.css";
 function Registration() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -29,36 +28,36 @@ function Registration() {
 
   return (
     <form>
-      <div className="RegistrationPage">
+      <div className="main-page">
+        <p className="title"> Create New Account </p>
 
-        <div className="SingleRegistrationField">
-          <label> Username </label>
+        <div>
             <input
               type="Username"
               id="Username"
-              className="form__input"
+              className="submit-field"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Username"
             ></input>
         </div>
+        <br></br>
 
-        <div className="SingleRegistrationField">
-          <label> Email </label>
+        <div>
           <input
             type="email"
             id="email"
-            className="form__input"
+            className="submit-field"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Email"
           ></input>
         </div>
+        <br></br>
 
-        <div className="SingleRegistrationField">
-          <label> Password </label>
+        <div>
           <input
-            className="form__input"
+            className="submit-field"
             type="password"
             id="password"
             value={password}
@@ -69,7 +68,7 @@ function Registration() {
 
         <br></br>
         <br></br>
-        <input onClick={onRegister} type="submit" value="Register" className="submit-registration"></input>
+        <input onClick={onRegister} type="submit" value="Register" className="submit"></input>
       </div>
     </form>
   );
