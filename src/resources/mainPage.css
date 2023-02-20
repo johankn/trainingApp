@@ -24,5 +24,8 @@
 }
 
 .header{
+    font-weight: 900;
+    color: rgba(74,169,198,255);
+    letter-spacing: 1px;
     font-size: 80px;
 }

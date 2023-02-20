@@ -1,0 +1,43 @@
+.main-page{
+  text-align: center;
+}
+
+.title {
+  font-size: 40px;
+  margin-top: 80px;
+  font-weight: 900;
+  color: rgba(74,169,198,255);
+  letter-spacing: 1px;
+}
+
+.submit-field {
+  width: 30%;
+  border-radius: 12px;
+  box-sizing: border-box;
+  border-color: black;
+  font-size: 18px;
+  height: 40px;
+  outline: 0;
+  padding: 4px 20px 0;
+}
+
+.submit {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    width: 20%;
+    height: 50px;
+    border: 1px solid black;
+    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+.submit:hover {
+  transform: translateY(-2px);
+  background-color: lightblue;
+}
+
+.submit:active {
+  box-shadow: #D6D6E7 0 3px 7px inset;
+  transform: translateY(2px);
+}
