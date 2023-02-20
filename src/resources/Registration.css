@@ -20,6 +20,12 @@
 .SingleRegistrationField {
 }
 
+.error{
+  background-color: #F8F9F9;
+  color: red;
+  padding: 10px;
+}
+
 .RegisterButton {
   padding: 2px;
   margin: 10px;

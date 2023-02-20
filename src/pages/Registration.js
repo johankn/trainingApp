@@ -8,6 +8,8 @@ function Registration() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [errorMessage, setErrorMessage] = useState('');
+
   const onRegister = (e) => {
     e.preventDefault();
     createUserWithEmailAndPassword(auth, email, password)
@@ -24,8 +26,27 @@ function Registration() {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
+        setErrorMessage(mapAuthCodeToMessage(error.code));
       });
   };
+
+  function mapAuthCodeToMessage(authCode) {
+    switch (authCode) {
+      case "auth/invalid-password":
+        return "Password provided is not corrected";
+
+      case "auth/weak-password":
+        return "The password needs to be at least 6 characters long";
+
+      case "auth/invalid-email":
+        return "Email provided is invalid";
+
+      // Many more authCode mapping here...
+
+      default:
+        return "";
+    }
+  }
 
   return (
     <form>
@@ -75,6 +96,11 @@ function Registration() {
               placeholder="Password"
             ></input>
           </div>
+
+          <div className="SingleRegistrationField">
+            {errorMessage && <div className="error"> {errorMessage} </div>}
+          </div>
+
           <input onClick={onRegister} type="submit" value="Register"></input>
         </div>
         <div className="CommercialField">
