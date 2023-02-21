@@ -34,3 +34,7 @@ body {
   clip-path: circle();
   border: 10px solid #F8F9F9;
 }
+
+.Profile:hover {
+  cursor: pointer;
+}
