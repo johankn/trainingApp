@@ -3,6 +3,7 @@ import Login from "./pages/Login";
 import Registration from "./pages/Registration";
 import MainPage from "./pages/MainPage";
 import MakeProgram from "./pages/MakeProgram";
+import ProfilePage from "./pages/ProfilePage";
 import { useState } from "react";
 import { auth } from "./firebase-config";
 import { signOut } from "firebase/auth";
@@ -19,6 +20,14 @@ function App() {
     });
   };
 
+  function goToProfile() {
+    if (isAuth) {
+      window.location.pathname = "/profile";
+    } else {
+      window.location.pathname = "/";
+    }
+  }
+
   return (
     <Router>
       <nav className="nav">
@@ -33,13 +42,15 @@ function App() {
             )}
           </li>
         </ul>
-        <div className="profile">
-          <img
-            src="./logo192.png"
-            alt="Profile-Placeholder"
-            className="profile-placeholder"
-          />
-        </div>
+        <a onClick={goToProfile}>
+          <div className="Profile">
+            <img
+              src="./logo192.png"
+              alt="Profile-Placeholder"
+              className="profile-placeholder"
+            />
+          </div>
+        </a>
       </nav>
       <Routes>
         <Route path="/mainpage" element={<MainPage setIsAuth={setIsAuth} />} />
@@ -48,6 +59,7 @@ function App() {
           path="/registration"
           element={<Registration isAuth={isAuth} />}
         />
+        <Route path="/profile" element={!isAuth ? (<Login/>) : (<ProfilePage/>)} loader={goToProfile}/>
         <Route path="/makeprogram" element={<MakeProgram isAuth={isAuth} />} />
       </Routes>
     </Router>

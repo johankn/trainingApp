@@ -1,0 +1,19 @@
+@import "../resources/loginRegistration.css";
+
+.saveChanges {
+    background-color:rgb(127, 255, 163);
+}
+
+.saveChanges:hover {
+    background-color: rgb(78, 157, 101);
+}
+
+.errorMessage {
+    color: red;
+    margin: 10px;
+}
+
+.confirmationMessage {
+    color: green;
+    margin: 10px;
+}
