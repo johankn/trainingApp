@@ -67,55 +67,55 @@ function TrainingProgram() {
   };
 
   return (
-    <div className="App">
-      <div className="center">
-        <h2>Training Program</h2>
-        <h3>{trainingDays[currentDayIndex].name}</h3>
-        <form onSubmit={handleSubmit}>
-          <label>
-            Exercise Name:
-            <input
-              type="text"
-              name="name"
-              value={newExercise.name}
-              onChange={handleInputChange}
-            />
-          </label>
-          <br />
-          <label>
-            Sets:
+    <div className="main-page">
+      <div>
+      <div>
+          {trainingDays.map((day, index) => (
+            <button
+              key={index}
+              onClick={() => handleSelectDay(index)}
+              className="select-day"
+            >
+              {day.name}
+            </button>
+          ))}
+        </div>
+        <h2 className="training-title">My Training Program</h2>
+        <h3 className="current-day">{trainingDays[currentDayIndex].name}</h3>
+        <form onSubmit={handleSubmit} className="training-form">
+          <label> Exercise Name:</label>
+          <br></br>
+          <input
+            type="text"
+            name="name"
+            value={newExercise.name}
+            onChange={handleInputChange}
+          />
+          <br></br>
+          <br></br>
+          <label>Sets:</label>
+          <br></br>
             <input
               type="number"
               name="sets"
               value={newExercise.sets}
               onChange={handleInputChange}
             />
-          </label>
-          <br />
-          <label>
-            Reps:
+          <br></br>
+          <br></br>
+          <label>Reps:</label>
+          <br></br>
             <input
               type="number"
               name="reps"
               value={newExercise.reps}
               onChange={handleInputChange}
             />
-          </label>
           <br />
-          <button type="submit">Add Exercise</button>
+          <br></br>
+          <button type="submit" className="submit">Add Exercise</button>
         </form>
-        <div className="left">{exerciseList}</div>
-        <div className="day-selector">
-          {trainingDays.map((day, index) => (
-            <button
-              key={index}
-              onClick={() => handleSelectDay(index)}
-              className={index === currentDayIndex ? "active" : ""}
-            >
-              {day.name}
-            </button>
-          ))}
-        </div>
+        <div>{exerciseList}</div>
       </div>
     </div>
   );

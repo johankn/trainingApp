@@ -17,8 +17,7 @@
   border-color: black;
   font-size: 18px;
   height: 40px;
-  outline: 0;
-  padding: 4px 20px 0;
+  padding: 4px 5px;
 }
 
 .submit {
@@ -40,4 +39,9 @@
 .submit:active {
   box-shadow: #D6D6E7 0 3px 7px inset;
   transform: translateY(2px);
+}
+
+.error {
+  color: red;
+  margin: 10px;
 }

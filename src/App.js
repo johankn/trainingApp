@@ -45,7 +45,7 @@ function App() {
         <a onClick={goToProfile}>
           <div className="Profile">
             <img
-              src="./profile.gif"
+              src="./logo192.png"
               alt="Profile-Placeholder"
               className="profile-placeholder"
             />
