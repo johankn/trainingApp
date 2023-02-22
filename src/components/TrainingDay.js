@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import "../resources/trainingDay.css";
+import { useNavigate } from "react-router-dom";
+import { addDoc, collection } from "firebase/firestore";
+import { db, auth } from "../firebase-config";
 
 function TrainingProgram() {
   const [trainingDays, setTrainingDays] = useState([
@@ -13,6 +16,8 @@ function TrainingProgram() {
   ]);
 
   const [currentDayIndex, setCurrentDayIndex] = useState(0);
+
+  const [title, setTitle] = useState("");
 
   const [newExercise, setNewExercise] = useState({
     name: "",
@@ -66,10 +71,32 @@ function TrainingProgram() {
     setCurrentDayIndex(dayIndex);
   };
 
+  const trainingProgramsCollectionRef = collection(db, "trainingPrograms");
+
+  const navigate = useNavigate();
+
+  const makeProgram = async () => {
+    if (title === "") {
+      alert("You must set a title for the training prgram.");
+      return;
+    }
+    // try {
+          addDoc(trainingProgramsCollectionRef, {
+      title,
+      trainingDays,
+      author: { name: auth.currentUser.displayName, id: auth.currentUser.uid },
+    });
+    navigate("/mainpage");
+    //  catch (error) {
+    //   alert("Add at least one exercise to your program!");
+    // }
+
+  };
+
   return (
     <div className="main-page">
       <div>
-      <div>
+        <div>
           {trainingDays.map((day, index) => (
             <button
               key={index}
@@ -81,6 +108,12 @@ function TrainingProgram() {
           ))}
         </div>
         <h2 className="training-title">My Training Program</h2>
+        <label> Program Title:</label>
+        <input
+          type="text"
+          name="name"
+          onChange={(e) => setTitle(e.target.value)}
+        />
         <h3 className="current-day">{trainingDays[currentDayIndex].name}</h3>
         <form onSubmit={handleSubmit} className="training-form">
           <label> Exercise Name:</label>
@@ -95,26 +128,29 @@ function TrainingProgram() {
           <br></br>
           <label>Sets:</label>
           <br></br>
-            <input
-              type="number"
-              name="sets"
-              value={newExercise.sets}
-              onChange={handleInputChange}
-            />
+          <input
+            type="number"
+            name="sets"
+            value={newExercise.sets}
+            onChange={handleInputChange}
+          />
           <br></br>
           <br></br>
           <label>Reps:</label>
           <br></br>
-            <input
-              type="number"
-              name="reps"
-              value={newExercise.reps}
-              onChange={handleInputChange}
-            />
+          <input
+            type="number"
+            name="reps"
+            value={newExercise.reps}
+            onChange={handleInputChange}
+          />
           <br />
           <br></br>
-          <button type="submit" className="submit">Add Exercise</button>
+          <button type="submit" className="submit">
+            Add Exercise
+          </button>
         </form>
+        <button onClick={makeProgram}>Save Program</button>
         <div>{exerciseList}</div>
       </div>
     </div>

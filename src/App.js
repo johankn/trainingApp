@@ -4,6 +4,7 @@ import Registration from "./pages/Registration";
 import MainPage from "./pages/MainPage";
 import MakeProgram from "./pages/MakeProgram";
 import ProfilePage from "./pages/ProfilePage";
+import ViewPrograms from "./pages/ViewPrograms";
 import { useState } from "react";
 import { auth } from "./firebase-config";
 import { signOut } from "firebase/auth";
@@ -61,6 +62,8 @@ function App() {
         />
         <Route path="/profile" element={!isAuth ? (<Login/>) : (<ProfilePage/>)} loader={goToProfile}/>
         <Route path="/makeprogram" element={<MakeProgram isAuth={isAuth} />} />
+        <Route path="/viewprograms" element={<ViewPrograms isAuth={isAuth} />} />
+
       </Routes>
     </Router>
   );

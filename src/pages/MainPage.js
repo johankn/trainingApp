@@ -9,11 +9,15 @@ function MainPage(){
         navigate("/makeprogram");
     }
 
+    const toViewPrograms = () => {
+      navigate("/viewprograms");
+  }
+
     return(
         <div className="button-parent">
             <p className="header">Train With Me</p>
             <input type="button" className="make-program" value = "Create Training Programs" onClick={toMakeProgram}></input>
-            <input type="button" className="make-program" value = "View Training Programs"></input>
+            <input type="button" className="make-program" value = "View Training Programs" onClick={toViewPrograms}></input>
         </div>
     )
 }
