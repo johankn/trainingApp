@@ -29,10 +29,18 @@ function App() {
     }
   }
 
+  const toMainPage = () => {
+    if (isAuth) {
+      window.location.pathname = "/mainpage";
+    } else {
+      window.location.pathname = "/";
+    }
+  }
+
   return (
     <Router>
       <nav className="nav">
-        <img src="./logo192.png" alt="Logo" className="nav-logo" />
+        <img onClick={toMainPage} src="./image.png" alt="Logo" className="nav-logo" />
         <ul className="nav-items">
           <li>
             {" "}
@@ -46,7 +54,7 @@ function App() {
         <a onClick={goToProfile}>
           <div className="Profile">
             <img
-              src="./logo192.png"
+              src="./profile-icon.png"
               alt="Profile-Placeholder"
               className="profile-placeholder"
             />
