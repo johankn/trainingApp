@@ -16,7 +16,8 @@ body {
 }
 
 .nav-logo {
-  width: 100px;
+  width: 180px;
+  cursor: pointer;
 }
 
 .nav {
@@ -27,6 +28,8 @@ body {
   width: 75px;
   height: 75px;
   clip-path: circle();
+  margin-top: 8px;
+  margin-right: 10px;
 }
 
 .profile {
@@ -35,6 +38,6 @@ body {
   border: 10px solid #F8F9F9;
 }
 
-.Profile:hover {
+.Profile {
   cursor: pointer;
 }
