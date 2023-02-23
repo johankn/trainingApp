@@ -6,6 +6,36 @@
 
 .saveChanges:hover {
     background-color: rgb(78, 157, 101);
+    cursor: pointer;
+}
+
+.submit-field:hover {
+    cursor: text;
+}
+
+.saveChangesInactive:hover {
+    transform: none;
+    background-color: grey;
+    cursor: not-allowed; 
+}
+
+.saveChangesInactive:active {
+    transform: none;
+    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
+    cursor: not-allowed; 
+}
+
+.saveChangesInactive {
+    background-color: grey;
+}
+
+.logout {
+    background-color: rgb(181, 0, 0);
+}
+
+.logout:hover {
+    cursor: pointer;
+    background-color: rgb(126, 0, 0);
 }
 
 .errorMessage {
