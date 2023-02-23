@@ -90,7 +90,7 @@ function Login({ setIsAuth }) {
           {print_error()}
         </div>
 
-        <input onClick={onLogin} type="button" value="Login" className="submit"></input>
+        <input onClick={onLogin} type="submit" value="Login" className="submit"></input>
         <br></br>
         <br></br>
         <br></br>
