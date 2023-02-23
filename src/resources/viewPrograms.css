@@ -1,0 +1,38 @@
+.viewprogram-title{
+    text-align: center;
+    font-size: 40px;
+    font-weight: 900;
+    color: rgba(74,169,198,255);
+    letter-spacing: 1px;
+}
+
+.program-column{
+    display: inline;
+    float: left;
+    margin-left: 5%;
+}
+
+
+.mintest1{
+    list-style-type: none;
+    padding-left: 5;
+}
+
+.mintest2{
+    list-style-type: none;
+}
+
+.program-name-title{
+    font-size: 30px;
+    font-weight: 600;
+    color: navy;
+    letter-spacing: 1px;
+}
+
+.trainingday-name{
+    font-size: 18px;
+}
+
+.exercise-name{
+    font-weight: 800;
+}

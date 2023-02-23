@@ -95,6 +95,7 @@ function TrainingProgram() {
 
   return (
     <div className="main-page">
+      <h2 className="training-title">Create Training Program</h2>
       <div>
         <div>
           {trainingDays.map((day, index) => (
@@ -107,11 +108,13 @@ function TrainingProgram() {
             </button>
           ))}
         </div>
-        <h2 className="training-title">My Training Program</h2>
-        <label> Program Title:</label>
+        <br></br>
+        <label className="program-title"> Program Title:</label>
+        <br></br>
         <input
           type="text"
           name="name"
+          className="program-field"
           onChange={(e) => setTitle(e.target.value)}
         />
         <h3 className="current-day">{trainingDays[currentDayIndex].name}</h3>
@@ -146,11 +149,11 @@ function TrainingProgram() {
           />
           <br />
           <br></br>
-          <button type="submit" className="submit">
+          <button type="submit" className="training-submit">
             Add Exercise
           </button>
         </form>
-        <button onClick={makeProgram}>Save Program</button>
+        <button onClick={makeProgram} className= "training-submit">Save Program</button>
         <div>{exerciseList}</div>
       </div>
     </div>
