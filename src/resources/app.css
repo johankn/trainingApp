@@ -14,6 +14,7 @@ body {
 
 .nav-items > li {
   padding: 20px;
+  cursor: pointer;
 }
 
 .nav-logo {
