@@ -15,9 +15,9 @@ function MainPage(){
 
     return(
         <div className="button-parent">
-            <p className="header">Train With Me</p>
-            <input type="button" className="make-program" value = "Create Training Programs" onClick={toMakeProgram}></input>
-            <input type="button" className="make-program" value = "View Training Programs" onClick={toViewPrograms}></input>
+            <p className="mainpage-title">Train With Me</p>
+            <input type="button" className="mainpage-button" value = "Create Training Programs" onClick={toMakeProgram}></input>
+            <input type="button" className="mainpage-button" value = "View Training Programs" onClick={toViewPrograms}></input>
         </div>
     )
 }

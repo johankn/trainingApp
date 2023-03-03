@@ -32,16 +32,13 @@ function App() {
       <nav className="nav">
         <img onClick={toMainPage} src="./image.png" alt="Logo" className="nav-logo" />
         <ul className="nav-items">
-
         </ul>
-        <a onClick={goToProfile}>
-          <div className="Profile">
+        <a onClick={goToProfile} className="Profile">
             <img
               src="./profile-icon.png"
               alt="Profile-Placeholder"
               className="profile-placeholder"
             />
-          </div>
         </a>
       </nav>
       <Routes>

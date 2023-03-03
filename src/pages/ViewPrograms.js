@@ -46,11 +46,11 @@ function ViewPrograms({ isAuth }) {
         {trainingPrograms.map((program) => (
           <li key={program.id} className="program-column">
             <h3 className="program-name-title">{program.title}</h3>
-            <ul className="mintest1">
+            <ul className="program-day-list">
               {program.trainingDays.map((trainingDay) => (
                 <li key={trainingDay.name}>
                   <h4 className="trainingday-name">{trainingDay.name}</h4>
-                  <ul className="mintest2">
+                  <ul className="exercise-name-list">
                     {trainingDay.exercises.map((exercise) => (
                       <li className="content" key={exercise.name}>
                         <p className="exercise-name">{exercise.name}</p>
