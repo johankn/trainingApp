@@ -4,6 +4,7 @@ body {
 .nav {
   display: flex;
   justify-content: space-between;
+  background-color: rgb(98, 168, 192);
 }
 
 .nav-items {
@@ -20,22 +21,12 @@ body {
   cursor: pointer;
 }
 
-.nav {
-  background-color: rgb(98, 168, 192);
-}
-
 .profile-placeholder {
   width: 75px;
   height: 75px;
   clip-path: circle();
   margin-top: 8px;
   margin-right: 10px;
-}
-
-.profile {
-  background-color: #F8F9F9;
-  clip-path: circle();
-  border: 10px solid #F8F9F9;
 }
 
 .Profile {

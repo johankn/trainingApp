@@ -1,31 +1,32 @@
 .button-parent{
     text-align: center;
 }
-.make-program{
+
+.mainpage-title{
+    font-weight: 900;
+    color: rgba(74,169,198,255);
+    letter-spacing: 1px;
+    font-size: 80px;
+}
+
+.mainpage-button{
     font-family: Arial, Helvetica, sans-serif;
     font-size: 26px;
     width: 25%;
     height: 100px;
     border: 1px solid black;
-    margin-top: 125px;
+    margin-top: 6rem;
     margin-right: 30px;
     box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
     border-radius: 4px;
 }
   
-.make-program:hover {
+.mainpage-button:hover {
     transform: translateY(-2px);
     background-color: lightblue;
 }
   
-.make-program:active {
+.mainpage-button:active {
     box-shadow: #D6D6E7 0 3px 7px inset;
     transform: translateY(2px);
-}
-
-.header{
-    font-weight: 900;
-    color: rgba(74,169,198,255);
-    letter-spacing: 1px;
-    font-size: 80px;
 }
