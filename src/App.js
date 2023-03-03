@@ -5,6 +5,7 @@ import MainPage from "./pages/MainPage";
 import MakeProgram from "./pages/MakeProgram";
 import ProfilePage from "./pages/ProfilePage";
 import ViewPrograms from "./pages/ViewPrograms";
+import ProgressionChart from "./pages/ProgressionChart";
 import { useState } from "react";
 import "./resources/app.css";
 
@@ -52,6 +53,8 @@ function App() {
         <Route path="/makeprogram" element={<MakeProgram isAuth={isAuth} />} />
         <Route path="/viewprograms" element={<ViewPrograms isAuth={isAuth} />} />
 
+        {/* TODO authentication */}
+        <Route path="/progressionchart" element={<ProgressionChart />} />
       </Routes>
     </Router>
   );
