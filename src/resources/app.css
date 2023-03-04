@@ -4,17 +4,38 @@ body {
 .nav {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   background-color: rgb(98, 168, 192);
 }
 
 .nav-items {
   list-style: none;
   display: flex;
+  margin: 0;
+  padding: 0;
 }
 
 .nav-items > li {
   padding: 20px;
+  font-weight: 600;
+  font-size: 20px;
   cursor: pointer;
+  position: relative;
+}
+
+.nav-items > li:before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: #333333;
+  transition: width 0.3s ease-in-out;
+}
+
+.nav-items > li:hover:before {
+  width: 100%;
 }
 
 .nav-logo {
@@ -26,10 +47,12 @@ body {
   width: 75px;
   height: 75px;
   clip-path: circle();
-  margin-top: 8px;
-  margin-right: 10px;
 }
 
 .Profile {
   cursor: pointer;
+  width: 180px;
+  display: flex;
+  justify-content: right;
+  padding-right: 10px;
 }
