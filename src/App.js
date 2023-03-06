@@ -33,6 +33,9 @@ function App() {
       <nav className="nav">
         <img onClick={toMainPage} src="./image.png" alt="Logo" className="nav-logo" />
         <ul className="nav-items">
+          <li>Create Programs</li>
+          <li>View Programs</li>
+          <li>See Progression</li>
         </ul>
         <a onClick={goToProfile} className="Profile">
             <img
