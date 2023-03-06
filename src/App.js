@@ -59,8 +59,8 @@ function App() {
         <img onClick={toMainPage} src="./image.png" alt="Logo" className="nav-logo" />
         <ul className="nav-items">
           <li onClick={toCreatePrograms}>Create Programs</li>
-          <li onclick={toViewPrograms}>View Programs</li>
-          <li onclick={toSeeProgression}>See Progression</li>
+          <li onClick={toViewPrograms}>View Programs</li>
+          <li onClick={toSeeProgression}>See Progression</li>
         </ul>
         <a onClick={goToProfile} className="Profile">
             <img
