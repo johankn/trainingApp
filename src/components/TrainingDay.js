@@ -18,6 +18,7 @@ function TrainingProgram() {
   const [currentDayIndex, setCurrentDayIndex] = useState(0);
 
   const [title, setTitle] = useState("");
+  const [week, setWeek] = useState("");
 
   const [newExercise, setNewExercise] = useState({
     name: "",
@@ -30,18 +31,24 @@ function TrainingProgram() {
     setNewExercise({ ...newExercise, [name]: value });
   };
 
+  const handleDropdownChange = () => {
+    const selectElement = document.querySelector('#select1');
+    const output = selectElement.options[selectElement.selectedIndex].value;
+
+    setNewExercise({ ...newExercise, name: output });
+  }
+
   const handleSubmit = (event) => {
+ 
     event.preventDefault();
+
+    console.log(newExercise.name);
     // Check if any input fields are empty
     if (!newExercise.name || !newExercise.sets || !newExercise.reps) {
       return;
     }
     const id = trainingDays[currentDayIndex].exercises.length + 1;
-    // Validate exercise name
-    if (!/^[A-Za-z\s]+$/.test(newExercise.name)) {
-      alert("Exercise name must only contain letters and spaces.");
-      return;
-    }
+
     const exercise = { id, ...newExercise };
     const updatedTrainingDays = [...trainingDays];
     updatedTrainingDays[currentDayIndex].exercises.push(exercise);
@@ -81,8 +88,9 @@ function TrainingProgram() {
       return;
     }
     // try {
-          addDoc(trainingProgramsCollectionRef, {
+    addDoc(trainingProgramsCollectionRef, {
       title,
+      week,
       trainingDays,
       author: { name: auth.currentUser.displayName, id: auth.currentUser.uid },
     });
@@ -90,7 +98,6 @@ function TrainingProgram() {
     //  catch (error) {
     //   alert("Add at least one exercise to your program!");
     // }
-
   };
 
   return (
@@ -117,16 +124,35 @@ function TrainingProgram() {
           className="program-field"
           onChange={(e) => setTitle(e.target.value)}
         />
+        <br></br>
+        <input
+          type="number"
+          name="week"
+          className="week-field"
+          onChange={(e) => setWeek(e.target.value)}
+        />
         <h3 className="current-day">{trainingDays[currentDayIndex].name}</h3>
         <form onSubmit={handleSubmit} className="training-form">
-          <label> Exercise Name:</label>
-          <br></br>
-          <input
-            type="text"
-            name="name"
-            value={newExercise.name}
-            onChange={handleInputChange}
-          />
+          <label> Exercise: </label>
+          <div className="search-dropdown">
+            {/* <input
+              type="text"
+              name="name"
+              id="search-input"
+              placeholder="Search for exercise..."
+              value={newExercise.name}
+              onChange={handleInputChange}
+            /> */}
+            <select id="select1" onChange={handleDropdownChange}>
+              <option value="Squats">Squats</option>
+              <option value="Push-Ups">Push-Ups</option>
+              <option value="Bench Press">Bench Press</option>
+              <option value="Sit-Ups">Sit-Ups</option>
+              <option value="Bicep Curls">Bicep Curls</option>
+              <option value="Shoulder Press">Shoulder Press</option>
+              <option value="Pull-Ups">Pull-Ups</option>
+            </select>
+          </div>
           <br></br>
           <br></br>
           <label>Sets:</label>
@@ -153,7 +179,9 @@ function TrainingProgram() {
             Add Exercise
           </button>
         </form>
-        <button onClick={makeProgram} className= "training-submit">Save Program</button>
+        <button onClick={makeProgram} className="training-submit">
+          Save Program
+        </button>
         <div>{exerciseList}</div>
       </div>
     </div>
