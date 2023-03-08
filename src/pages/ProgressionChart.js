@@ -97,7 +97,7 @@ function ProgressionChart() {
     <LineChart width={1000} height={500} data={progressionData}>
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="name" />
-      <YAxis />
+      <YAxis label={{value: "Total Reps", angle: -90, position: 'insideLeft'}}/>
       <Tooltip />
       <Legend />
       <Line
