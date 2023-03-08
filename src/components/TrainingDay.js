@@ -137,14 +137,6 @@ function TrainingProgram() {
         <form onSubmit={handleSubmit} className="training-form">
           <label> Exercise: </label>
           <div className="search-dropdown">
-            {/* <input
-              type="text"
-              name="name"
-              id="search-input"
-              placeholder="Search for exercise..."
-              value={newExercise.name}
-              onChange={handleInputChange}
-            /> */}
             <select id="select1" onChange={handleDropdownChange}>
               <option value="Squats">Squats</option>
               <option value="Push-Ups">Push-Ups</option>
