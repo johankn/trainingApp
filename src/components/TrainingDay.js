@@ -125,6 +125,8 @@ function TrainingProgram() {
           onChange={(e) => setTitle(e.target.value)}
         />
         <br></br>
+        <label className="program-title"> Week:</label>
+        <br></br>
         <input
           type="number"
           name="week"
