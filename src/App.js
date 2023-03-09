@@ -8,6 +8,7 @@ import ViewPrograms from "./pages/ViewPrograms";
 import ProgressionChart from "./pages/ProgressionChart";
 import { useState } from "react";
 import "./resources/app.css";
+import { NavLink } from "react-router-dom";
 
 function App() {
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
@@ -28,14 +29,38 @@ function App() {
     }
   }
 
+  const toCreatePrograms = () => {
+    if (isAuth) {
+      window.location.pathname = "/MakeProgram";
+    } else {
+      window.location.pathname = "/";
+    }
+  }
+
+  const toViewPrograms = () => {
+    if (isAuth) {
+      window.location.pathname = "/ViewPrograms";
+    } else {
+      window.location.pathname = "/";
+    }
+  }
+
+  const toSeeProgression = () => {
+    if (isAuth) {
+      window.location.pathname = "/ProgressionChart";
+    } else {
+      window.location.pathname = "/";
+    }
+  }
+
   return (
     <Router>
       <nav className="nav">
         <img onClick={toMainPage} src="./image.png" alt="Logo" className="nav-logo" />
         <ul className="nav-items">
-          <li>Create Programs</li>
-          <li>View Programs</li>
-          <li>See Progression</li>
+          <li onClick={toCreatePrograms}>Create Programs</li>
+          <li onClick={toViewPrograms}>View Programs</li>
+          <li onClick={toSeeProgression}>See Progression</li>
         </ul>
         <a onClick={goToProfile} className="Profile">
             <img
