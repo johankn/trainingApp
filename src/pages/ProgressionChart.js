@@ -100,12 +100,12 @@ function ProgressionChart() {
 
       setProgressionData(progressionData);
       
-      const placeholderdata = weeks.map((week) => ({
+      const daysTrainedData = weeks.map((week) => ({
         name: `Week ${week}`,
         DaysTrained: calculateDaysTrained(week, programs),
       }));
 
-      setPlaceholderData(placeholderdata);
+      setDaysTrainedData(daysTrainedData);
     } catch (err) {
       console.log(err);
     }
@@ -117,9 +117,10 @@ function ProgressionChart() {
   }, []);
 
   const [progressionData, setProgressionData] = useState([]);
-  const [placeholderdata, setPlaceholderData] = useState([]);
+  const [daysTrainedData, setDaysTrainedData] = useState([]);
 
   const [weeks, setWeeks] = useState([]);
+
 
   const [visibility, setVisibility] = useState({
     Arms: true,
@@ -131,9 +132,8 @@ function ProgressionChart() {
   });
 
   const toggleVisibility = (dataKey) => {
-    setVisibility({ ...visibility, [dataKey]: !visibility[dataKey] });
+    setVisibility({ ...visibility, [dataKey]: !visibility[dataKey]});
   };
-
 
   return (
     <div className="progression-chart-main-page">
@@ -193,7 +193,7 @@ function ProgressionChart() {
         />
       </LineChart>
       <div className="chart-title">Days trained per week</div>
-      <BarChart width={1000} height={500} data={placeholderdata}>
+      <BarChart width={1000} height={500} data={daysTrainedData}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
         <YAxis
