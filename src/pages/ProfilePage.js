@@ -96,8 +96,6 @@ function ProfilePage({ setIsAuth }){
          setErrorMessage("");
      };
 
-     console.log(auth)
-
     return (
         <form>
           <div className="main-page">
