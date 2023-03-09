@@ -1,5 +1,16 @@
 import "../resources/progressionChart.css";
-import {BarChart, Bar,Cell, LineChart,Line,XAxis,YAxis,CartesianGrid,Tooltip,Legend} from "recharts";
+import {
+  BarChart,
+  Bar,
+  Cell,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from "recharts";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -14,13 +25,6 @@ import {
 } from "firebase/firestore";
 
 function ProgressionChart() {
-  const placeholderdata = [
-    { name: 'Week 1', weight: 20, reps: 10,daysTrained: 4},
-    { name: 'Week 2', weight: 40, reps: 20,daysTrained: 2},
-    { name: 'Week 3', weight: 60, reps: 10,daysTrained: 5},
-    { name: 'Week 4', weight: 80, reps: 20,daysTrained: 4},
-    { name: 'Week 5', weight: 100,reps: 30,daysTrained: 7},
-  ];
 
   const exercisesMap = new Map([
     ["Arms", ["Bicep Curls"]],
@@ -28,7 +32,7 @@ function ProgressionChart() {
     ["Legs", ["Squats"]],
     ["Abdominals", ["Sit-Ups"]],
     ["Shoulders", ["Shoulder Press"]],
-    ["Back", ["Pull-Ups"]]
+    ["Back", ["Pull-Ups"]],
   ]);
 
   const calculateTotalReps = (bodyPart, week, programs) => {
@@ -36,10 +40,11 @@ function ProgressionChart() {
     programs.forEach((program) => {
       if (program.week === week) {
         program.trainingDays.forEach((day) => {
-          day.exercises.forEach((exercise)  => {
-          if (exercisesMap.get(bodyPart).includes(exercise.name)) {
-            totalReps += exercise.reps * exercise.sets;
-          }})
+          day.exercises.forEach((exercise) => {
+            if (exercisesMap.get(bodyPart).includes(exercise.name)) {
+              totalReps += exercise.reps * exercise.sets;
+            }
+          });
         });
       }
     });
@@ -48,6 +53,20 @@ function ProgressionChart() {
 
   const [trainingPrograms, setTrainingPrograms] = useState([]);
   const trainingProgramsCollectionRef = collection(db, "trainingPrograms");
+
+  const calculateDaysTrained = (week, programs) => {
+    let daysTrained = 0;
+    programs.forEach((program) => {
+      if (program.week === week) {
+        program.trainingDays.forEach((day) => {
+          if (day.exercises.length !== 0) {
+            daysTrained++;
+          }
+        });
+      }
+    });
+    return daysTrained;
+  };
 
   const getPrograms = async () => {
     try {
@@ -61,8 +80,10 @@ function ProgressionChart() {
         .filter((program) => program.author.id === currentUser.uid);
 
       // Extract the unique week numbers from the training programs
-      const weeks = [...new Set(programs.map((program) => program.week))].sort();
-      
+      const weeks = [
+        ...new Set(programs.map((program) => program.week)),
+      ].sort(function(a, b){return a - b});
+
       setTrainingPrograms(programs);
       setWeeks(weeks);
 
@@ -78,7 +99,13 @@ function ProgressionChart() {
       }));
 
       setProgressionData(progressionData);
+      
+      const placeholderdata = weeks.map((week) => ({
+        name: `Week ${week}`,
+        DaysTrained: calculateDaysTrained(week, programs),
+      }));
 
+      setPlaceholderData(placeholderdata);
     } catch (err) {
       console.log(err);
     }
@@ -90,65 +117,76 @@ function ProgressionChart() {
   }, []);
 
   const [progressionData, setProgressionData] = useState([]);
+  const [placeholderdata, setPlaceholderData] = useState([]);
+
   const [weeks, setWeeks] = useState([]);
 
   return (
     <div className="progressionChartMainPage">
-    <LineChart width={1000} height={500} data={progressionData}>
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
-      <YAxis label={{value: "Total Reps", angle: -90, position: 'insideLeft'}}/>
-      <Tooltip />
-      <Legend />
-      <Line
-        type="monotone"
-        dataKey="Arms"
-        stroke="#FFC100"
-        activeDot={{ r: 8 }}
-      />
-      <Line
-        type="monotone"
-        dataKey="Chest"
-        stroke="#82ca9d"
-        activeDot={{ r: 8 }}
-      />
-      <Line
-        type="monotone"
-        dataKey="Shoulders"
-        stroke="#82c"
-        activeDot={{ r: 8 }}
-      />
-      <Line
-        type="monotone"
-        dataKey="Back"
-        stroke="#F000FF"
-        activeDot={{ r: 8 }}
-      />
-      <Line
-        type="monotone"
-        dataKey="Abdominals"
-        stroke="#10E7E0"
-        activeDot={{ r: 8 }}
-      />
-      <Line
-        type="monotone"
-        dataKey="Legs"
-        stroke="#D54729"
-        activeDot={{ r: 8 }}
-      />
-    </LineChart>
-        <div className="barChart">
-          <div className="chartTitle">Workout's per week</div>
-          <BarChart width={1000} height={500} data={placeholderdata}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="daysTrained" fill="#82ca9d"/>
-          </BarChart>
-        </div>
-  </div>
+      <div className="chartTitle">Reps per week per bodypart</div>
+      <LineChart width={1000} height={500} data={progressionData}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="name" />
+        <YAxis
+          label={{ value: "Total Reps", angle: -90, position: "insideLeft" }}
+        />
+        <Tooltip />
+        <Legend />
+        <Line
+          type="monotone"
+          dataKey="Arms"
+          stroke="#FFC100"
+          activeDot={{ r: 8 }}
+        />
+        <Line
+          type="monotone"
+          dataKey="Chest"
+          stroke="#82ca9d"
+          activeDot={{ r: 8 }}
+        />
+        <Line
+          type="monotone"
+          dataKey="Shoulders"
+          stroke="#82c"
+          activeDot={{ r: 8 }}
+        />
+        <Line
+          type="monotone"
+          dataKey="Back"
+          stroke="#F000FF"
+          activeDot={{ r: 8 }}
+        />
+        <Line
+          type="monotone"
+          dataKey="Abdominals"
+          stroke="#10E7E0"
+          activeDot={{ r: 8 }}
+        />
+        <Line
+          type="monotone"
+          dataKey="Legs"
+          stroke="#D54729"
+          activeDot={{ r: 8 }}
+        />
+      </LineChart>
+      <div className="barChart">
+        <div className="chartTitle">Days trained per week</div>
+        <BarChart width={1000} height={500} data={placeholderdata}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis
+            label={{
+              value: "Days Trained",
+              angle: -90,
+              position: "insideLeft",
+            }}
+          />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="DaysTrained" fill="#82ca9d" />
+        </BarChart>
+      </div>
+    </div>
   );
 }
 
