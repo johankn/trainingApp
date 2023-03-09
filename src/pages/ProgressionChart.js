@@ -121,9 +121,23 @@ function ProgressionChart() {
 
   const [weeks, setWeeks] = useState([]);
 
+  const [visibility, setVisibility] = useState({
+    Arms: true,
+    Chest: true,
+    Shoulders: true,
+    Back: true,
+    Abdominals: true,
+    Legs: true
+  });
+
+  const toggleVisibility = (dataKey) => {
+    setVisibility({ ...visibility, [dataKey]: !visibility[dataKey] });
+  };
+
+
   return (
-    <div className="progressionChartMainPage">
-      <div className="chartTitle">Reps per week per bodypart</div>
+    <div className="progression-chart-main-page">
+      <div className="chart-title">Reps per week per bodypart</div>
       <LineChart width={1000} height={500} data={progressionData}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
@@ -131,62 +145,68 @@ function ProgressionChart() {
           label={{ value: "Total Reps", angle: -90, position: "insideLeft" }}
         />
         <Tooltip />
-        <Legend />
+        <Legend onClick={(toggle) => {
+          const { value } = toggle;
+          toggleVisibility(value);
+        }} />
         <Line
           type="monotone"
           dataKey="Arms"
           stroke="#FFC100"
           activeDot={{ r: 8 }}
+          hide={!visibility.Arms}
         />
         <Line
           type="monotone"
           dataKey="Chest"
           stroke="#82ca9d"
           activeDot={{ r: 8 }}
+          hide={!visibility.Chest}
         />
         <Line
           type="monotone"
           dataKey="Shoulders"
           stroke="#82c"
           activeDot={{ r: 8 }}
+          hide={!visibility.Shoulders}
         />
         <Line
           type="monotone"
           dataKey="Back"
           stroke="#F000FF"
           activeDot={{ r: 8 }}
+          hide={!visibility.Back}
         />
         <Line
           type="monotone"
           dataKey="Abdominals"
           stroke="#10E7E0"
           activeDot={{ r: 8 }}
+          hide={!visibility.Abdominals}
         />
         <Line
           type="monotone"
           dataKey="Legs"
           stroke="#D54729"
           activeDot={{ r: 8 }}
+          hide={!visibility.Legs}
         />
       </LineChart>
-      <div className="barChart">
-        <div className="chartTitle">Days trained per week</div>
-        <BarChart width={1000} height={500} data={placeholderdata}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis
-            label={{
-              value: "Days Trained",
-              angle: -90,
-              position: "insideLeft",
-            }}
-            domain={[0,7]}
-          />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="DaysTrained" fill="#82ca9d" />
-        </BarChart>
-      </div>
+      <div className="chart-title">Days trained per week</div>
+      <BarChart width={1000} height={500} data={placeholderdata}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="name" />
+        <YAxis
+          label={{
+            value: "Days Trained",
+            angle: -90,
+            position: "insideLeft",
+          }}
+          domain={[0,7]}
+        />
+        <Tooltip />
+        <Bar dataKey="DaysTrained" fill="#82ca9d" />
+      </BarChart>
     </div>
   );
 }

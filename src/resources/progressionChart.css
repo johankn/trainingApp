@@ -1,20 +1,11 @@
-.progressionChartMainPage{
+.progression-chart-main-page{
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.lineChart{
-    margin-top: 2em;
-    text-align: center;
-}
-
-.barChart{
-    margin-top: 4em;
-    text-align: center;
-}   
-
-.chartTitle{
+.chart-title{
     font-size: 26px;
     font-weight: 600;
+    margin-top: 2em;
 }
