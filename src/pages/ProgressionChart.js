@@ -180,6 +180,7 @@ function ProgressionChart() {
               angle: -90,
               position: "insideLeft",
             }}
+            domain={[0,7]}
           />
           <Tooltip />
           <Legend />
