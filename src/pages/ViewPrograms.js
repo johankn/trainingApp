@@ -68,7 +68,7 @@ function ViewPrograms({ isAuth }) {
                   <tr>
                     <button
                       onClick={() => setUserPrograms(program)}
-                      className="training-submit"
+                      className="select-program"
                     >
                       <td>{program.title}</td>
                       <td text-align="center">1</td>
