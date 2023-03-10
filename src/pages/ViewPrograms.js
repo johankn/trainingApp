@@ -71,7 +71,7 @@ function ViewPrograms({ isAuth }) {
                       className="training-submit"
                     >
                       <td>{program.title}</td>
-                      <td text-align="center">1</td>
+                      <td text-align="center">{program.week}</td>
                     </button>
                   </tr>
                 ))}
