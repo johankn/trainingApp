@@ -25,14 +25,26 @@ import {
 } from "firebase/firestore";
 
 function ProgressionChart() {
-
   const exercisesMap = new Map([
-    ["Arms", ["Bicep Curls"]],
-    ["Chest", ["Push-Ups", "Bench Press"]],
-    ["Legs", ["Squats"]],
-    ["Abdominals", ["Sit-Ups"]],
-    ["Shoulders", ["Shoulder Press"]],
-    ["Back", ["Pull-Ups"]],
+    ["Arms", ["Bicep Curls", "Tricep Extensions", "Hammer Curls"]],
+    [
+      "Chest",
+      ["Push-Ups", "Bench Press", "Incline Bench Press", "Dumbbell Flyes"],
+    ],
+    [
+      "Legs",
+      [
+        "Squats",
+        "Lunges",
+        "Deadlifts",
+        "Leg Presses",
+        "Leg Curls",
+        "Calf Raises",
+      ],
+    ],
+    ["Abdominals", ["Sit-Ups", "Russian Twists", "Plank"]],
+    ["Shoulders", ["Shoulder Press", "Lateral Raises"]],
+    ["Back", ["Pull-Ups", "Cable Rows", "Lat Pulldowns", "Chin-Ups"]],
   ]);
 
   const calculateTotalReps = (bodyPart, week, programs) => {
@@ -80,9 +92,11 @@ function ProgressionChart() {
         .filter((program) => program.author.id === currentUser.uid);
 
       // Extract the unique week numbers from the training programs
-      const weeks = [
-        ...new Set(programs.map((program) => program.week)),
-      ].sort(function(a, b){return a - b});
+      const weeks = [...new Set(programs.map((program) => program.week))].sort(
+        function (a, b) {
+          return a - b;
+        }
+      );
 
       setTrainingPrograms(programs);
       setWeeks(weeks);
@@ -99,7 +113,7 @@ function ProgressionChart() {
       }));
 
       setProgressionData(progressionData);
-      
+
       const daysTrainedData = weeks.map((week) => ({
         name: `Week ${week}`,
         DaysTrained: calculateDaysTrained(week, programs),
@@ -121,18 +135,17 @@ function ProgressionChart() {
 
   const [weeks, setWeeks] = useState([]);
 
-
   const [visibility, setVisibility] = useState({
     Arms: true,
     Chest: true,
     Shoulders: true,
     Back: true,
     Abdominals: true,
-    Legs: true
+    Legs: true,
   });
 
   const toggleVisibility = (dataKey) => {
-    setVisibility({ ...visibility, [dataKey]: !visibility[dataKey]});
+    setVisibility({ ...visibility, [dataKey]: !visibility[dataKey] });
   };
 
   return (
@@ -145,10 +158,12 @@ function ProgressionChart() {
           label={{ value: "Total Reps", angle: -90, position: "insideLeft" }}
         />
         <Tooltip />
-        <Legend onClick={(toggle) => {
-          const { value } = toggle;
-          toggleVisibility(value);
-        }} />
+        <Legend
+          onClick={(toggle) => {
+            const { value } = toggle;
+            toggleVisibility(value);
+          }}
+        />
         <Line
           type="monotone"
           dataKey="Arms"
@@ -202,7 +217,7 @@ function ProgressionChart() {
             angle: -90,
             position: "insideLeft",
           }}
-          domain={[0,7]}
+          domain={[0, 7]}
         />
         <Tooltip />
         <Bar dataKey="DaysTrained" fill="#82ca9d" />
