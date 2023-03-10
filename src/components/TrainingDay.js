@@ -91,7 +91,6 @@ function TrainingProgram() {
     // }
   };
 
-
   const [exercises, setExercises] = useState([
     { id: 1, name: "Squats" },
     { id: 2, name: "Push-Ups" },
@@ -103,7 +102,7 @@ function TrainingProgram() {
     { id: 8, name: "Lunges" },
     { id: 9, name: "Deadlifts" },
     { id: 10, name: "Leg Presses" },
-    { id: 11, name: "Planks" },
+    { id: 11, name: "Plank" },
     { id: 12, name: "Russian Twists" },
     { id: 13, name: "Tricep Extensions" },
     { id: 14, name: "Leg Curls" },
@@ -115,7 +114,7 @@ function TrainingProgram() {
     { id: 20, name: "Hammer Curls" },
     { id: 21, name: "Lateral Raises" },
     { id: 22, name: "Chin-Ups" },
-]);
+  ]);
 
   const [query, setQuery] = useState("");
 
@@ -173,9 +172,14 @@ function TrainingProgram() {
         <form onSubmit={handleSubmit} className="training-form">
           <label> Exercise: </label>
           <div>
-            <input type="text" placeholder="Search..." value={query} onChange={handleSearchChange} />
-            {query.length > 1 &&
-              filteredExercises.map((exercise) => (
+            <input
+              type="text"
+              placeholder="Search..."
+              value={query}
+              onChange={handleSearchChange}
+            />
+            {query.length >= 1 &&
+              filteredExercises.slice(0,5).map((exercise) => (
                 <div
                   key={exercise.id}
                   style={{ cursor: "pointer" }}
