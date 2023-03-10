@@ -31,18 +31,9 @@ function TrainingProgram() {
     setNewExercise({ ...newExercise, [name]: value });
   };
 
-  const handleDropdownChange = () => {
-    const selectElement = document.querySelector('#select1');
-    const output = selectElement.options[selectElement.selectedIndex].value;
-
-    setNewExercise({ ...newExercise, name: output });
-  }
-
   const handleSubmit = (event) => {
- 
     event.preventDefault();
 
-    console.log(newExercise.name);
     // Check if any input fields are empty
     if (!newExercise.name || !newExercise.sets || !newExercise.reps) {
       return;
@@ -100,6 +91,51 @@ function TrainingProgram() {
     // }
   };
 
+
+  const [exercises, setExercises] = useState([
+    { id: 1, name: "Squats" },
+    { id: 2, name: "Push-Ups" },
+    { id: 3, name: "Bench Press" },
+    { id: 4, name: "Sit-ups" },
+    { id: 5, name: "Bicep Curls" },
+    { id: 6, name: "Shoulder Press" },
+    { id: 7, name: "Pull-Ups" },
+    { id: 8, name: "Lunges" },
+    { id: 9, name: "Deadlifts" },
+    { id: 10, name: "Leg Presses" },
+    { id: 11, name: "Planks" },
+    { id: 12, name: "Russian Twists" },
+    { id: 13, name: "Tricep Extensions" },
+    { id: 14, name: "Leg Curls" },
+    { id: 15, name: "Calf Raises" },
+    { id: 16, name: "Lat Pulldowns" },
+    { id: 17, name: "Cable Rows" },
+    { id: 18, name: "Incline Bench Press" },
+    { id: 19, name: "Dumbbell Flyes" },
+    { id: 20, name: "Hammer Curls" },
+    { id: 21, name: "Lateral Raises" },
+    { id: 22, name: "Chin-Ups" },
+]);
+
+  const [query, setQuery] = useState("");
+
+  function filterExercises() {
+    return exercises.filter(
+      (exercise) =>
+        exercise.name.toLowerCase().indexOf(query.toLowerCase()) > -1
+    );
+  }
+  function handleSearchChange(event) {
+    setQuery(event.target.value);
+  }
+
+  function handleExerciseSelect(exercise) {
+    setNewExercise({ ...newExercise, name: exercise });
+    setQuery(exercise);
+  }
+
+  const filteredExercises = filterExercises();
+
   return (
     <div className="main-page">
       <h2 className="training-title">Create Training Program</h2>
@@ -136,16 +172,18 @@ function TrainingProgram() {
         <h3 className="current-day">{trainingDays[currentDayIndex].name}</h3>
         <form onSubmit={handleSubmit} className="training-form">
           <label> Exercise: </label>
-          <div className="search-dropdown">
-            <select id="select1" onChange={handleDropdownChange}>
-              <option value="Squats">Squats</option>
-              <option value="Push-Ups">Push-Ups</option>
-              <option value="Bench Press">Bench Press</option>
-              <option value="Sit-Ups">Sit-Ups</option>
-              <option value="Bicep Curls">Bicep Curls</option>
-              <option value="Shoulder Press">Shoulder Press</option>
-              <option value="Pull-Ups">Pull-Ups</option>
-            </select>
+          <div>
+            <input type="text" placeholder="Search..." value={query} onChange={handleSearchChange} />
+            {query.length > 1 &&
+              filteredExercises.map((exercise) => (
+                <div
+                  key={exercise.id}
+                  style={{ cursor: "pointer" }}
+                  onClick={() => handleExerciseSelect(exercise.name)}
+                >
+                  {exercise.name}
+                </div>
+              ))}
           </div>
           <br></br>
           <br></br>

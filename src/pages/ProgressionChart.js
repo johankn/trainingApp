@@ -26,14 +26,14 @@ import {
 
 function ProgressionChart() {
 
-  const exercisesMap = new Map([
-    ["Arms", ["Bicep Curls"]],
-    ["Chest", ["Push-Ups", "Bench Press"]],
-    ["Legs", ["Squats"]],
-    ["Abdominals", ["Sit-Ups"]],
-    ["Shoulders", ["Shoulder Press"]],
-    ["Back", ["Pull-Ups"]],
-  ]);
+  const exercisesMap = new Map([  ["Arms", ["Bicep Curls", "Tricep Extensions", "Hammer Curls"]],
+  ["Chest", ["Push-Ups", "Bench Press", "Incline Bench Press", "Dumbbell Flyes"]],
+  ["Legs", ["Squats", "Lunges", "Deadlifts", "Leg Presses", "Leg Curls", "Calf Raises"]],
+  ["Abdominals", ["Sit-Ups", "Russian Twists", "Planks"]],
+  ["Shoulders", ["Shoulder Press", "Lateral Raises"]],
+  ["Back", ["Pull-Ups", "Cable Rows", "Lat Pulldowns", "Chin-Ups"]],
+]);
+
 
   const calculateTotalReps = (bodyPart, week, programs) => {
     let totalReps = 0;
