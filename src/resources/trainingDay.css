@@ -9,29 +9,6 @@
   letter-spacing: 1px;
 }
 
-.program-title{
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: 1px;
-}
-
-.program-field{
-  width: 15%;
-  border-radius: 12px;
-  box-sizing: border-box;
-  border-color: black;
-  font-size: 18px;
-  height: 40px;
-  padding: 4px 5px;
-}
-
-.current-day{
-  font-size: 30px;
-  font-weight: 900;
-  color: rgba(74,169,198,255);
-  letter-spacing: 1px;
-}
-
 .select-day {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 18px;
@@ -52,6 +29,38 @@
 .select-day:active {
   box-shadow: #D6D6E7 0 3px 7px inset;
   transform: translateY(2px);
+}
+
+.program-title{
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.program-field{
+  width: 15%;
+  border-radius: 12px;
+  box-sizing: border-box;
+  border-color: black;
+  font-size: 18px;
+  height: 40px;
+  padding: 4px 5px;
+}
+
+.week-field{
+  width: 15%;
+  border-radius: 12px;
+  box-sizing: border-box;
+  border-color: black;
+  font-size: 18px;
+  height: 40px;
+}
+
+.current-day{
+  font-size: 30px;
+  font-weight: 900;
+  color: rgba(74,169,198,255);
+  letter-spacing: 1px;
 }
 
 .training-form > input{
