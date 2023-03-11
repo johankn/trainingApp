@@ -49,17 +49,17 @@ function ViewPrograms({ isAuth }) {
     <div>
       <h2 className="viewprogram-title">Your Training Programs</h2>
       {trainingPrograms.length > 0 ? (
-        <div className="program_table_div">
+        <div className="view-program-main-page">
           <h2>Click on a training program to view it</h2>
           <div>
-            <table className="program_table">
+            <table className="program-table">
               <thead>
                 <tr>
                   <td className="tableHeader">
-                    <h3 className="HeaderText">Programs</h3>
+                    <h3>Programs</h3>
                   </td>
                   <td className="tableHeader">
-                    <h3 className="HeaderText">Week:</h3>
+                    <h3>Week:</h3>
                   </td>
                 </tr>
               </thead>
@@ -71,7 +71,7 @@ function ViewPrograms({ isAuth }) {
                       className="select-program"
                     >
                       <td>{program.title}</td>
-                      <td text-align="center">{program.week}</td>
+                      <td>{program.week}</td>
                     </button>
                   </tr>
                 ))}
@@ -79,17 +79,20 @@ function ViewPrograms({ isAuth }) {
             </table>
           </div>
 
+
+
+
           <br></br>
           {userPrograms ? (
             <div>
               <h2 className="viewprogram-title">{userPrograms.title}:</h2>
-              <div className="Modified DayTable">
-                <table className="program_table">
+              <div>
+                <table className="program-table">
                   <thead>
                     <tr>
                       {userPrograms.trainingDays.map((trainingDay) => (
-                        <td className="tableHeader">
-                          <h3 className="HeaderText">{trainingDay.name}</h3>
+                        <td>
+                          <h3>{trainingDay.name}</h3>
                         </td>
                       ))}
                     </tr>
@@ -99,18 +102,18 @@ function ViewPrograms({ isAuth }) {
                     <tr>
                       {userPrograms.trainingDays.map((trainingDay) => (
                         <td>
-                          <div className="Unmodified DayTable">
-                            <table className="program_table">
-                              <thead className="SubtableHead">
+                          <div>
+                            <table className="program-table">
+                              <thead>
                                 <tr>
                                   <td>
-                                    <h4 className="HeaderText">Name</h4>
+                                    <h4>Name</h4>
                                   </td>
                                   <td>
-                                    <h4 className="HeaderText">Sets</h4>
+                                    <h4>Sets</h4>
                                   </td>
                                   <td>
-                                    <h4 className="HeaderText">Reps</h4>
+                                    <h4>Reps</h4>
                                   </td>
                                 </tr>
                               </thead>

@@ -6,54 +6,33 @@
     letter-spacing: 1px;
 }
 
-.viewprogram-programs{
-    /* text-align: center; */
-    color: rgba(74,169,198,255);
-}
-
-.HeaderText{
-    color: #F8F9F9;
-}
-
-.program_table_div{
+.view-program-main-page{
     display: flex;
     flex-direction: column;
     align-items: center;
 } 
 
-.PageOutline{
-    display: flex;
-}
-
-.program_table{
+.program-table{
     table-layout: fixed;
     border-collapse: collapse;
 }
 
-.program_table tbody{
+.program-table tbody{
   display:block;
   overflow: auto;
   height: 200px;
 }
 
-.Modified tbody{
-    overflow: visible;
-}
-
-.Unmodified tbody{
-    overflow: auto;
-}
-
-.program_table thead tr {
+.program-table thead tr {
    display: block;
 }
 
-.program_table thead {
+.program-table thead {
   background: rgba(74,169,198,255);
   color:#fff;
 }
 
-.program_table th, .program_table td {
+.program-table th, .program-table td {
   padding: 5px;
   text-align: left;
   width: 200px;
@@ -78,8 +57,4 @@
 .select-program:active {
     box-shadow: #D6D6E7 0 3px 7px inset;
     transform: translateY(2px);
-}
-
-.SubtableHead{
-    background: rgba(255, 255, 255, 0.359);
 }
