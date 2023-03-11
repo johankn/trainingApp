@@ -48,10 +48,9 @@ function ViewPrograms({ isAuth }) {
 
   return (
     <div>
-      <h2 className="viewprogram-title">Your Training Programs</h2>
       {trainingPrograms.length > 0 ? (
         <div className="view-program-main-page">
-          <h2>Click on a training program to view it</h2>
+          {/* <h1>Click on a training program to view it</h1> */}
           <div className="choose-program-container">
             {trainingPrograms.sort((a, b) => a.week - b.week).map(program => (
                 <div className="choose-program-card" onClick={() => setUserPrograms(program)}>
