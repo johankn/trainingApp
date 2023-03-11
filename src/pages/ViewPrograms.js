@@ -52,35 +52,12 @@ function ViewPrograms({ isAuth }) {
         <div className="view-program-main-page">
           <h2>Click on a training program to view it</h2>
           <div>
-            <table className="program-table">
-              <thead>
-                <tr>
-                  <td className="tableHeader">
-                    <h3>Programs</h3>
-                  </td>
-                  <td className="tableHeader">
-                    <h3>Week:</h3>
-                  </td>
-                </tr>
-              </thead>
-              <tbody>
+              <div>
                 {trainingPrograms.map((program) => (
-                  <tr>
-                    <button
-                      onClick={() => setUserPrograms(program)}
-                      className="select-program"
-                    >
-                      <td>{program.title}</td>
-                      <td>{program.week}</td>
-                    </button>
-                  </tr>
+                    <button onClick={() => setUserPrograms(program)} className="select-program">{program.title}</button>
                 ))}
-              </tbody>
-            </table>
+              </div>
           </div>
-
-
-
 
           <br></br>
           {userPrograms ? (
