@@ -62,60 +62,25 @@ function ViewPrograms({ isAuth }) {
                 </div>
             ))}
           </div>
-
-          <br></br>
           {userPrograms ? (
             <div>
               <h2 className="viewprogram-title">{userPrograms.title}:</h2>
-              <div>
-                <table className="program-table">
-                  <thead>
-                    <tr>
-                      {userPrograms.trainingDays.map((trainingDay) => (
-                        <td>
-                          <h3>{trainingDay.name}</h3>
-                        </td>
-                      ))}
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    <tr>
-                      {userPrograms.trainingDays.map((trainingDay) => (
-                        <td>
-                          <div>
-                            <table className="program-table">
-                              <thead>
-                                <tr>
-                                  <td>
-                                    <h4>Name</h4>
-                                  </td>
-                                  <td>
-                                    <h4>Sets</h4>
-                                  </td>
-                                  <td>
-                                    <h4>Reps</h4>
-                                  </td>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                {trainingDay.exercises.map((exercise) => (
-                                  <tr>
-                                    <td>{exercise.name}</td>
-                                    <td>{exercise.sets}</td>
-                                    <td>{exercise.reps}</td>
-                                  </tr>
-                                ))}
-                              </tbody>
-                            </table>
-                          </div>
-                        </td>
-                      ))}
-                    </tr>
-                  </tbody>
-                </table>
+              <div className="display-program-container">
+                {userPrograms.trainingDays.map((trainingDay) => (
+                <div className="display-program-card">
+                  <div>{trainingDay.name}</div>
+                  <div>
+                    {trainingDay.exercises.map((exercise) => (
+                      <div>
+                        <p>{exercise.name}</p>
+                        <p> sets:{exercise.sets}</p>
+                        <p> reps: {exercise.reps}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
               </div>
-              <br></br>
             </div>
           ) : (
             <h2>No program has been selected yet</h2>
