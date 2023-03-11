@@ -34,6 +34,7 @@ function ViewPrograms({ isAuth }) {
           id: doc.id,
         }))
         .filter((program) => program.author.id === currentUser.uid);
+      
       setTrainingPrograms(programs);
     } catch (err) {
       console.log(err);
@@ -51,12 +52,15 @@ function ViewPrograms({ isAuth }) {
       {trainingPrograms.length > 0 ? (
         <div className="view-program-main-page">
           <h2>Click on a training program to view it</h2>
-          <div>
-              <div>
-                {trainingPrograms.map((program) => (
-                    <button onClick={() => setUserPrograms(program)} className="select-program">{program.title}</button>
-                ))}
-              </div>
+          <div className="choose-program-container">
+            {trainingPrograms.sort((a, b) => a.week - b.week).map(program => (
+                <div className="choose-program-card" onClick={() => setUserPrograms(program)}>
+                  <div>
+                      <h2 className="choose-program-title">{program.title}</h2>
+                      <p className="choose-program-week">Week {program.week}</p>
+                  </div>
+                </div>
+            ))}
           </div>
 
           <br></br>
