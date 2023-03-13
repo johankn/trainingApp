@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../resources/trainingDay.css";
 import { useNavigate } from "react-router-dom";
 import { addDoc, collection } from "firebase/firestore";
 import { db, auth } from "../firebase-config";
 
-function TrainingProgram() {
-  const [trainingDays, setTrainingDays] = useState([
+function TrainingProgram( currentProgram, setcurrentProgram) {
+  
+    const [trainingDays, setTrainingDays] = useState([
     { name: "Monday", exercises: [] },
     { name: "Tuesday", exercises: [] },
     { name: "Wednesday", exercises: [] },
@@ -25,6 +26,35 @@ function TrainingProgram() {
     sets: "",
     reps: "",
   });
+
+  useEffect(() => {
+    //console.log(currentProgram !== null);
+    if (currentProgram !== null) {
+        console.log(currentProgram);
+        console.log(currentProgram !== null);
+        set_params().then(() => reset_params())
+    } 
+    
+  }, [currentProgram]);   
+
+  function set_params() {
+    return new Promise((resolve, reject) => {
+        setTitle(currentProgram.currentProgram.title);
+        setWeek(currentProgram.currentProgram.week);
+        trainingDays[0].exercises = currentProgram.currentProgram.trainingDays[0].exercises;
+        trainingDays[1].exercises = currentProgram.currentProgram.trainingDays[1].exercises;
+        trainingDays[2].exercises = currentProgram.currentProgram.trainingDays[2].exercises;
+        trainingDays[3].exercises = currentProgram.currentProgram.trainingDays[3].exercises;
+        trainingDays[4].exercises = currentProgram.currentProgram.trainingDays[4].exercises;
+        trainingDays[5].exercises = currentProgram.currentProgram.trainingDays[5].exercises;
+        trainingDays[6].exercises = currentProgram.currentProgram.trainingDays[6].exercises;
+        resolve();
+      });
+  }
+
+  function reset_params(){
+    setcurrentProgram(null);
+  }
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -158,6 +188,7 @@ function TrainingProgram() {
           name="name"
           className="program-field"
           onChange={(e) => setTitle(e.target.value)}
+          value={title}
         />
         <br></br>
         <label className="program-title"> Week:</label>
@@ -167,6 +198,7 @@ function TrainingProgram() {
           name="week"
           className="week-field"
           onChange={(e) => setWeek(e.target.value)}
+          value={week}
         />
         <h3 className="current-day">{trainingDays[currentDayIndex].name}</h3>
         <form onSubmit={handleSubmit} className="training-form">

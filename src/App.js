@@ -12,6 +12,7 @@ import GeneratedProgram from "./pages/GeneratedProgram";
 
 function App() {
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
+  const [currentProgram, setcurrentProgram] = useState(null);
 
   function goToProfile() {
     if (isAuth) {
@@ -87,8 +88,8 @@ function App() {
           element={<Registration isAuth={isAuth} />}
         />
         <Route path="/profile" element={!isAuth ? (<Login/>) : (<ProfilePage setIsAuth={setIsAuth}/> )} loader={goToProfile}/>
-        <Route path="/makeprogram" element={<MakeProgram isAuth={isAuth} />} />
-        <Route path="/viewprograms" element={<ViewPrograms isAuth={isAuth} />} />
+        <Route path="/makeprogram" element={<MakeProgram currentProgram={currentProgram} setcurrentProgram={setcurrentProgram} isAuth={isAuth} />} />
+        <Route path="/viewprograms" element={<ViewPrograms setcurrentProgram={setcurrentProgram} isAuth={isAuth} />} />
         <Route path="/GeneratedProgram" element={<GeneratedProgram isAuth={isAuth} />} />
 
         {/* TODO authentication */}
