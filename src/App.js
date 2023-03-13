@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Registration from "./pages/Registration";
 import MainPage from "./pages/MainPage";
@@ -10,6 +10,7 @@ import React, { useState } from "react";
 import "./resources/app.css";
 import { NavLink } from "react-router-dom";
 import { auth } from "./firebase-config";
+import GeneratedProgram from "./pages/GeneratedProgram";
 
 function App() {
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
@@ -63,6 +64,13 @@ function App() {
         console.log(auth);
     }   
     })}, [])
+  const toGenerateProgram = () => {
+    if (isAuth) {
+      window.location.pathname = "/GeneratedProgram";
+    } else {
+      window.location.pathname = "/";
+    }
+  }
 
   return (
     <Router>
@@ -72,6 +80,7 @@ function App() {
           <li onClick={toCreatePrograms}>Create Programs</li>
           <li onClick={toViewPrograms}>View Programs</li>
           <li onClick={toSeeProgression}>See Progression</li>
+          <li onClick={toGenerateProgram}>Generate Training Program</li>
         </ul>
         <a onClick={goToProfile} className="Profile">
             <img
@@ -91,6 +100,7 @@ function App() {
         <Route path="/profile" element={!isAuth ? (<Login/>) : (<ProfilePage url={url} setUrl={setUrl} setIsAuth={setIsAuth}/> )} loader={goToProfile}/>
         <Route path="/makeprogram" element={<MakeProgram isAuth={isAuth} />} />
         <Route path="/viewprograms" element={<ViewPrograms isAuth={isAuth} />} />
+        <Route path="/GeneratedProgram" element={<GeneratedProgram isAuth={isAuth} />} />
 
         {/* TODO authentication */}
         <Route path="/progressionchart" element={<ProgressionChart />} />
