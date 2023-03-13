@@ -6,12 +6,14 @@ import MakeProgram from "./pages/MakeProgram";
 import ProfilePage from "./pages/ProfilePage";
 import ViewPrograms from "./pages/ViewPrograms";
 import ProgressionChart from "./pages/ProgressionChart";
-import { useState } from "react";
+import React, { useState } from "react";
 import "./resources/app.css";
 import { NavLink } from "react-router-dom";
+import { auth } from "./firebase-config";
 
 function App() {
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
+  const [url, setUrl] = useState("profile-icon.png");
 
   function goToProfile() {
     if (isAuth) {
@@ -53,6 +55,15 @@ function App() {
     }
   }
 
+  React.useEffect(() => {auth.onAuthStateChanged(user => {
+    if (user) {
+        if (auth.currentUser.photoURL) {
+            setUrl(auth.currentUser.photoURL);
+        }
+        console.log(auth);
+    }   
+    })}, [])
+
   return (
     <Router>
       <nav className="nav">
@@ -64,7 +75,7 @@ function App() {
         </ul>
         <a onClick={goToProfile} className="Profile">
             <img
-              src="./profile-icon.png"
+              src={url}
               alt="Profile-Placeholder"
               className="profile-placeholder"
             />
@@ -77,7 +88,7 @@ function App() {
           path="/registration"
           element={<Registration isAuth={isAuth} />}
         />
-        <Route path="/profile" element={!isAuth ? (<Login/>) : (<ProfilePage setIsAuth={setIsAuth}/> )} loader={goToProfile}/>
+        <Route path="/profile" element={!isAuth ? (<Login/>) : (<ProfilePage url={url} setUrl={setUrl} setIsAuth={setIsAuth}/> )} loader={goToProfile}/>
         <Route path="/makeprogram" element={<MakeProgram isAuth={isAuth} />} />
         <Route path="/viewprograms" element={<ViewPrograms isAuth={isAuth} />} />
 

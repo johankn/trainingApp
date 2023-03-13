@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { addDoc, collection } from "firebase/firestore";
-import { db, auth } from "../firebase-config";
+import { upload, auth } from "../firebase-config";
 import "../resources/profilepage.css";
 import {useNavigate} from "react-router-dom";
 import { updateProfile, updateEmail, updatePassword, signOut } from "firebase/auth";
 
-function ProfilePage({ setIsAuth }){
+function ProfilePage({ url, setUrl, setIsAuth }){
     const [usernameNew, setUsernameNew] = useState("");
     const [emailNew, setEmailNew] = useState("");
     const [passwordNew, setPasswordNew] = useState("");
@@ -18,9 +17,6 @@ function ProfilePage({ setIsAuth }){
 
     const [errorMessage, setErrorMessage] = useState("");
     const [hasSaved, setHasSaved] = useState(false);
-
-    const [image, setImage] = useState(null);
-    const [url, setUrl] = useState("../profile-icon.png");
 
     const signUserOut = () => {
         signOut(auth).then(() => {
@@ -219,26 +215,8 @@ function ProfilePage({ setIsAuth }){
                 
           <input type="file" id="fileInput" style={{display: 'none'}} onChange={
             (e) => {
-
-                var file = e.target.files[0];
-
-                const user = auth.currentUser;
-
-                const imageRef = collection(db, 'profile_pictures/' + user.uid);
-
-                uploadBytes(imageRef, file)
-                    .then(() => {
-                        getDownloadURL(imageRef)
-                        .then((url) => {
-                            setUrl(url);
-                        })
-                        .catch((error) => {
-                            console.log(error.message, "error getting the image url");
-                        });
-                    })
-                    .catch((error) => {
-                        console.log(error.message);
-                    });}}>
+                upload(e.target.files[0], auth.currentUser, setUrl);
+            }}>
         </input>      
 
         </form>
