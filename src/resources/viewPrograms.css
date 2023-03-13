@@ -1,3 +1,9 @@
+.view-program-main-page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .viewprogram-title{
     text-align: center;
     font-size: 40px;
@@ -6,80 +12,85 @@
     letter-spacing: 1px;
 }
 
-.viewprogram-programs{
-    /* text-align: center; */
-    color: rgba(74,169,198,255);
+/* ------------------------------------------------------------------------------ */
+
+.choose-program-container {
+  display: flex;
+  overflow-x: scroll;
+  max-width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth; /* Optional: adds smooth scrolling effect */
 }
 
-.HeaderText{
-    color: #F8F9F9;
+.choose-program-container::-webkit-scrollbar {
+  display: none;
 }
 
-.program_table_div{
+.choose-program-card {
+  flex: 0 0 auto;
+  margin-right: 10px;
+  border: 1px solid black;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  width: 15em;
+  height: 8em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+}
+
+.choose-program-card:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.choose-program-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 0 10px;
+}
+
+.choose-program-week {
+  font-size: 16px;
+  margin: 0;
+}
+
+
+/* ------------------------------------------------------------------------------ */
+.display-program-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-} 
-
-.PageOutline{
-    display: flex;
-}
-
-.program_table{
-    table-layout: fixed;
-    border-collapse: collapse;
-}
-
-.program_table tbody{
-  display:block;
-  overflow: auto;
-  height: 200px;
-}
-
-.Modified tbody{
-    overflow: visible;
-}
-
-.Unmodified tbody{
-    overflow: auto;
-}
-
-.program_table thead tr {
-   display: block;
-}
-
-.program_table thead {
-  background: rgba(74,169,198,255);
-  color:#fff;
-}
-
-.program_table th, .program_table td {
-  padding: 5px;
-  text-align: left;
-  width: 200px;
-}
-
-.select-program{
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 18px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  /* style for each training day card */
+  .display-program-card {
     border: 1px solid black;
-    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
     border-radius: 4px;
-    width: auto;
-    height: auto;
-    margin-top: 3px;
-}
-
-.select-program:hover {
-    transform: translateY(-2px);
-    background-color: lightblue;
-}
-
-.select-program:active {
-    box-shadow: #D6D6E7 0 3px 7px inset;
-    transform: translateY(2px);
-}
-
-.SubtableHead{
-    background: rgba(255, 255, 255, 0.359);
-}
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    margin: 10px;
+    padding: 10px;
+    width: 300px;
+  }
+  
+  /* style for the exercise details */
+  .display-program-card div {
+    margin-top: 10px;
+  }
+  
+  .display-program-card p {
+    margin: 0;
+  }
+  
+  .display-program-card p:first-child {
+    font-weight: bold;
+  }
+  
+  
+  
+  
+  
+  
