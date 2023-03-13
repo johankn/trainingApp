@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { auth } from "../firebase-config";
+import { addDoc, collection } from "firebase/firestore";
+import { db, auth } from "../firebase-config";
 import "../resources/profilepage.css";
 import {useNavigate} from "react-router-dom";
 import { updateProfile, updateEmail, updatePassword, signOut } from "firebase/auth";
-
 
 function ProfilePage({ setIsAuth }){
     const [usernameNew, setUsernameNew] = useState("");
@@ -19,6 +19,9 @@ function ProfilePage({ setIsAuth }){
     const [errorMessage, setErrorMessage] = useState("");
     const [hasSaved, setHasSaved] = useState(false);
 
+    const [image, setImage] = useState(null);
+    const [url, setUrl] = useState("../profile-icon.png");
+
     const signUserOut = () => {
         signOut(auth).then(() => {
           localStorage.clear();
@@ -27,13 +30,22 @@ function ProfilePage({ setIsAuth }){
         });
       };
 
+    function changeImage() {
+    document.getElementById('fileInput').click();}
+
     // The following code updates the displayed username and email when the auth module has been loaded in
     React.useEffect(() => {auth.onAuthStateChanged(user => {
         if (user) {
             set_actual_username(auth.currentUser.displayName);
             set_actual_mail(auth.currentUser.email);
+            if (auth.currentUser.photoURL) {
+                setUrl(auth.currentUser.photoURL);
+            }
+            console.log(auth);
         }   
     })}, [])
+
+
 
     const saveChanges = (e) => {
         // This line ensures that the page is not reloaded: 
@@ -101,7 +113,26 @@ function ProfilePage({ setIsAuth }){
           <div className="main-page">
             <p className="title"> User settings </p>
 
-            
+            <div>
+                {actual_username ? (
+                    <a className="profileHyperlink">
+                        <img
+                            src={url}
+                            alt="Profile-Placeholder"
+                            className="profilePlaceholder"
+                            onClick={changeImage}
+                        />
+                    </a>
+                ) : (
+                    <a className="profileHyperlink">
+                        <img
+                            src="../profile-icon.png"
+                            alt="Profile-Placeholder"
+                            className="profilePlaceholder"
+                        />
+                    </a>
+                )}
+            </div>
 
             <div>
                 <h3> {actual_username ? (`Your current username is: ${actual_username} `) : ("No username has been chosen")} </h3>
@@ -185,6 +216,31 @@ function ProfilePage({ setIsAuth }){
             <br></br>
             <br></br>
           </div>
+                
+          <input type="file" id="fileInput" style={{display: 'none'}} onChange={
+            (e) => {
+
+                var file = e.target.files[0];
+
+                const user = auth.currentUser;
+
+                const imageRef = collection(db, 'profile_pictures/' + user.uid);
+
+                uploadBytes(imageRef, file)
+                    .then(() => {
+                        getDownloadURL(imageRef)
+                        .then((url) => {
+                            setUrl(url);
+                        })
+                        .catch((error) => {
+                            console.log(error.message, "error getting the image url");
+                        });
+                    })
+                    .catch((error) => {
+                        console.log(error.message);
+                    });}}>
+        </input>      
+
         </form>
     )
 }
