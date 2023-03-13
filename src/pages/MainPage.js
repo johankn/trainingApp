@@ -24,11 +24,41 @@ function MainPage(){
             image: './deadlift.png',
             title: 'INSANE 30 MINUTE FULL BODY WORKOUT!'
           },
+        {
+            userID: 3,
+            username: 'Andrea Seglem',
+            image: './deadlift.png',
+            title: 'INSANE 30 MINUTE FULL BODY WORKOUT!'
+          },
+          {
+            userID: 3,
+            username: 'Andrea Seglem',
+            image: './deadlift.png',
+            title: 'INSANE 30 MINUTE FULL BODY WORKOUT!'
+          },
+          {
+            userID: 3,
+            username: 'Andrea Seglem',
+            image: './deadlift.png',
+            title: 'INSANE 30 MINUTE FULL BODY WORKOUT!'
+          },
+          {
+            userID: 3,
+            username: 'Andrea Seglem',
+            image: './deadlift.png',
+            title: 'INSANE 30 MINUTE FULL BODY WORKOUT!'
+          },
       ]);
     
       return (
-        <div className="feed-container">
-            <h1>Feed</h1>
+        <div>
+            <div className="create-post-container">
+              <p>Your personal Train With Me frontpage. Come here to check in with your favorite communities.</p>
+              <button className="create-post-button">Create Post</button>
+              <br></br>
+              <button className="create-post-button">Create communities</button>
+            </div>
+          <div className="feed-container">
             {posts.map(post => (
                 <div className="post-container" key={post.userID}>
                 <div className="post-image">
@@ -42,6 +72,7 @@ function MainPage(){
                 </div>
                 </div>
             ))}
+        </div>
         </div>
       );
 }
