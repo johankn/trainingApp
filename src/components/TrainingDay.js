@@ -39,7 +39,7 @@ function TrainingProgram( currentProgram, setcurrentProgram) {
 
   function set_params() {
     return new Promise((resolve, reject) => {
-        setTitle(currentProgram.currentProgram.title);
+        setTitle(currentProgram.currentProgram.title + " new");
         setWeek(currentProgram.currentProgram.week);
         trainingDays[0].exercises = currentProgram.currentProgram.trainingDays[0].exercises;
         trainingDays[1].exercises = currentProgram.currentProgram.trainingDays[1].exercises;
