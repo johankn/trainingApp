@@ -195,11 +195,11 @@ function Friends() {
       <div key={user.id}>
         <a>{user.username}</a>
         {isFriend ? (
-          <span>Already friends</span>
+          <span> Already friends</span>
         ) : isRequested ? (
-          <span>Friend request sent</span>
+          <span> Friend request sent</span>
         ) : isPending ? (
-          <span>Friend request pending</span>
+          <span> Friend request pending</span>
         ) : (
           <button onClick={() => handleSendFriendRequest(user.id)}>
             Add Friend
