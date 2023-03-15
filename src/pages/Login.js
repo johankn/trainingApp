@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { auth } from "../firebase-config";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import "../resources/loginRegistration.css";
 import {useNavigate} from "react-router-dom";
 
@@ -56,6 +56,10 @@ function Login({ setIsAuth }) {
   const navigate = useNavigate();
 
   const toRegistration = () => {
+    signOut(auth).then(() => {
+      localStorage.clear();
+      setIsAuth(false);
+    });
     navigate("/registration");
   }
 

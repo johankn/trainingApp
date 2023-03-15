@@ -6,7 +6,8 @@ import MakeProgram from "./pages/MakeProgram";
 import ProfilePage from "./pages/ProfilePage";
 import ViewPrograms from "./pages/ViewPrograms";
 import ProgressionChart from "./pages/ProgressionChart";
-import React, { useState } from "react";
+import Friends from "./pages/Friends";
+import { useState, useEffect } from "react";
 import "./resources/app.css";
 import { NavLink } from "react-router-dom";
 import { auth } from "./firebase-config";
@@ -56,7 +57,7 @@ function App() {
     }
   }
 
-  React.useEffect(() => {auth.onAuthStateChanged(user => {
+  useEffect(() => {auth.onAuthStateChanged(user => {
     if (user) {
         if (auth.currentUser.photoURL) {
             setUrl(auth.currentUser.photoURL);
@@ -104,6 +105,7 @@ function App() {
 
         {/* TODO authentication */}
         <Route path="/progressionchart" element={<ProgressionChart />} />
+        <Route path="/friends" element={<Friends />} />
       </Routes>
     </Router>
   );
