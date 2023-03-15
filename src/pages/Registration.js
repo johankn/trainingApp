@@ -1,7 +1,18 @@
 import React, { useState } from "react";
+import {useNavigate} from "react-router-dom";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth } from "../firebase-config";
+import { auth, db } from "../firebase-config";
 import "../resources/loginRegistration.css";
+import {
+  getDocs,
+  addDoc,
+  setDoc,
+  collection,
+  deleteDoc,
+  doc,
+  where,
+  query,
+} from "firebase/firestore";
 
 
 
@@ -9,8 +20,28 @@ function Registration() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  // const [id, setId] = useState("");
+
+  const usersCollectionRef = collection(db, "users");
+
 
   const [errorMessage, setErrorMessage] = useState('');
+
+  async function addUserToDB(uid){
+    const docRef = doc(db, "users", uid);
+    
+    await setDoc(docRef, {
+      username: username,
+      email: email,
+      id: uid,
+    });
+  }
+
+  const navigate = useNavigate();
+
+  const toLogin = () => {
+    navigate("/");
+  }
 
   const onRegister = (e) => {
     e.preventDefault();
@@ -18,15 +49,22 @@ function Registration() {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
+        const id = user.uid;
+        console.log(id);
+        addUserToDB(id);
+
         const update = {
           displayName: username,
         };
         updateProfile(user, update);
-        window.location.pathname = "/";
+        
+        toLogin();
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        console.log(username);
+        console.log(email);
         console.log(errorCode, errorMessage);
         setErrorMessage(mapAuthCodeToMessage(error.code));
       });

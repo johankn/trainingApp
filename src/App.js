@@ -6,7 +6,8 @@ import MakeProgram from "./pages/MakeProgram";
 import ProfilePage from "./pages/ProfilePage";
 import ViewPrograms from "./pages/ViewPrograms";
 import ProgressionChart from "./pages/ProgressionChart";
-import React, { useState } from "react";
+import Friends from "./pages/Friends";
+import { useState } from "react";
 import "./resources/app.css";
 import { NavLink } from "react-router-dom";
 import { auth } from "./firebase-config";
@@ -104,6 +105,7 @@ function App() {
 
         {/* TODO authentication */}
         <Route path="/progressionchart" element={<ProgressionChart />} />
+        <Route path="/friends" element={<Friends />} />
       </Routes>
     </Router>
   );
