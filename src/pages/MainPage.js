@@ -3,8 +3,11 @@ import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { auth, db } from "../firebase-config";
 import { getDocs, collection } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
+
 
 function MainPage(){
+    const navigate = useNavigate();
     const postCollectionRef = collection(db, "posts");
     const [posts, setPosts] = useState([]);
 
@@ -28,12 +31,16 @@ function MainPage(){
         console.log("Effect called");
         getPosts();
       }, []);
+
+      function toCreatePost(){
+        navigate("/createpost");
+      }
     
       return (
         <div>
             <div className="create-post-container">
               <p>Your personal Train With Me frontpage. Come here to check in with your friends.</p>
-              <button className="create-post-button">Create Post</button>
+              <button className="create-post-button" onClick={toCreatePost}>Create Post</button>
               <br></br>
               <button className="create-post-button">Create communities</button>
             </div>
