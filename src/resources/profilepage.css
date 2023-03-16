@@ -47,3 +47,18 @@
     color: green;
     margin: 10px;
 }
+
+.profilePlaceholder {
+    width: 150px;
+    height: 150px;
+    background-size: cover;
+    border-radius:50% 50% 50% 50%;
+    clip-path: circle();
+    background-color: rgb(98, 168, 192);
+    border: 10px solid rgb(98, 168, 192);;
+
+  }
+  
+  .profileHyperlink {
+    cursor: pointer;
+  }
