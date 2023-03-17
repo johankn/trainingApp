@@ -12,7 +12,7 @@ import {
 } from "firebase/firestore";
 import "../resources/viewPrograms.css";
 
-function ViewPrograms({ isAuth }) {
+function ViewPrograms({ setcurrentProgram, isAuth }) {
   const navigate = useNavigate();
 
   const toLogin = () => {
@@ -46,6 +46,11 @@ function ViewPrograms({ isAuth }) {
     getPrograms();
   }, []);
 
+  function edit_program() {
+    setcurrentProgram(userPrograms);
+    navigate("/makeprogram");
+  }
+
   return (
     <div>
       {trainingPrograms.length > 0 ? (
@@ -64,6 +69,10 @@ function ViewPrograms({ isAuth }) {
           {userPrograms ? (
             <div>
               <h2 className="viewprogram-title">{userPrograms.title}:</h2>
+              <div className="display-program-container">
+              <button className="training-submit" onClick={edit_program}> Click here to edit the selected program </button>
+              </div>
+              
               <div className="display-program-container">
                 {userPrograms.trainingDays.map((trainingDay) => (
                 <div className="display-program-card">
