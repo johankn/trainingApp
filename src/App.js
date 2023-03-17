@@ -7,11 +7,12 @@ import ProfilePage from "./pages/ProfilePage";
 import ViewPrograms from "./pages/ViewPrograms";
 import ProgressionChart from "./pages/ProgressionChart";
 import Friends from "./pages/Friends";
+import GeneratedProgram from "./pages/GeneratedProgram";
+import CreatePost from "./pages/CreatePost";
 import { useState, useEffect } from "react";
 import "./resources/app.css";
 import { NavLink } from "react-router-dom";
 import { auth } from "./firebase-config";
-import GeneratedProgram from "./pages/GeneratedProgram";
 
 function App() {
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
@@ -95,10 +96,7 @@ function App() {
       <Routes>
         <Route path="/mainpage" element={<MainPage setIsAuth={setIsAuth} />} />
         <Route path="/" element={<Login setIsAuth={setIsAuth} />} />
-        <Route
-          path="/registration"
-          element={<Registration isAuth={isAuth} />}
-        />
+        <Route path="/registration" element={<Registration isAuth={isAuth} />}/>
         <Route path="/profile" element={!isAuth ? (<Login/>) : (<ProfilePage url={url} setUrl={setUrl} setIsAuth={setIsAuth}/> )} loader={goToProfile}/>
         <Route path="/makeprogram" element={<MakeProgram currentProgram={currentProgram} setcurrentProgram={setcurrentProgram} isAuth={isAuth} />} />
         <Route path="/viewprograms" element={<ViewPrograms setcurrentProgram={setcurrentProgram} isAuth={isAuth} />} />
@@ -107,6 +105,7 @@ function App() {
         {/* TODO authentication */}
         <Route path="/progressionchart" element={<ProgressionChart />} />
         <Route path="/friends" element={<Friends />} />
+        <Route path="/createpost" element={<CreatePost />} />
       </Routes>
     </Router>
   );

@@ -11,6 +11,8 @@ import {
   query,
 } from "firebase/firestore";
 import "../resources/viewPrograms.css";
+import ChooseProgramCarousel from "../components/ChooseProgramCarousel";
+import DisplayPrograms from "../components/DisplayPrograms";
 
 function ViewPrograms({ setcurrentProgram, isAuth }) {
   const navigate = useNavigate();
@@ -46,7 +48,7 @@ function ViewPrograms({ setcurrentProgram, isAuth }) {
     getPrograms();
   }, []);
 
-  function edit_program() {
+  function editProgram() {
     setcurrentProgram(userPrograms);
     navigate("/makeprogram");
   }
@@ -55,41 +57,13 @@ function ViewPrograms({ setcurrentProgram, isAuth }) {
     <div>
       {trainingPrograms.length > 0 ? (
         <div className="view-program-main-page">
-          {/* <h1>Click on a training program to view it</h1> */}
-          <div className="choose-program-container">
-            {trainingPrograms.sort((a, b) => a.week - b.week).map(program => (
-                <div className="choose-program-card" onClick={() => setUserPrograms(program)}>
-                  <div>
-                      <h2 className="choose-program-title">{program.title}</h2>
-                      <p className="choose-program-week">Week {program.week}</p>
-                  </div>
-                </div>
-            ))}
-          </div>
-          {userPrograms ? (
-            <div>
-              <h2 className="viewprogram-title">{userPrograms.title}:</h2>
-              <div className="display-program-container">
-              <button className="training-submit" onClick={edit_program}> Click here to edit the selected program </button>
-              </div>
-              
-              <div className="display-program-container">
-                {userPrograms.trainingDays.map((trainingDay) => (
-                <div className="display-program-card">
-                  <div>{trainingDay.name}</div>
-                  <div>
-                    {trainingDay.exercises.map((exercise) => (
-                      <div>
-                        <p>{exercise.name}</p>
-                        <p> sets:{exercise.sets}</p>
-                        <p> reps: {exercise.reps}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
-              </div>
-            </div>
+          <ChooseProgramCarousel
+            trainingPrograms={trainingPrograms}
+            setUserPrograms={setUserPrograms}
+          />
+          <button className="training-submit" onClick={editProgram}> Click here to edit the selected program </button>
+          {userPrograms ? (            
+            <DisplayPrograms userPrograms={userPrograms} />
           ) : (
             <h2>No program has been selected yet</h2>
           )}
