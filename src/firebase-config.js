@@ -39,3 +39,14 @@ export async function upload(file, currentUser, setUrl) {
 
     alert("Uploaded file!");
   }
+
+export async function uploadImg(file, currentUser, folder, imgName, setUrl) {
+    const fileRef = ref(storage, folder + '/' + currentUser.uid + '/' + imgName + '.png');
+  
+    const snapshot = await uploadBytes(fileRef, file);
+    const photoURL = await getDownloadURL(fileRef);
+    
+    setUrl(photoURL);
+
+    alert("Uploaded file!");
+  }
