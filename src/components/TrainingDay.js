@@ -178,7 +178,7 @@ function TrainingProgram( currentProgram, setcurrentProgram) {
           ))}
         </div>
         <br></br>
-        <label className="program-title"> Program Title:</label>
+        <label className="trainingday-title"> Program Title:</label>
         <br></br>
         <input
           type="text"
@@ -188,7 +188,7 @@ function TrainingProgram( currentProgram, setcurrentProgram) {
           value={title}
         />
         <br></br>
-        <label className="program-title"> Week:</label>
+        <label className="trainingday-title"> Week:</label>
         <br></br>
         <input
           type="number"
@@ -200,19 +200,20 @@ function TrainingProgram( currentProgram, setcurrentProgram) {
         />
         <h3 className="current-day">{trainingDays[currentDayIndex].name}</h3>
         <form onSubmit={handleSubmit} className="training-form">
-          <label> Exercise: </label>
+          <label className="trainingday-title"> Exercise: </label>
           <div>
             <input
               type="text"
               placeholder="Search..."
               value={query}
               onChange={handleSearchChange}
+              className="week-field"
             />
             {query.length >= 1 &&
               filteredExercises.slice(0,5).map((exercise) => (
                 <div
                   key={exercise.id}
-                  style={{ cursor: "pointer" }}
+                  className="select-exercise"
                   onClick={() => handleExerciseSelect(exercise.name)}
                 >
                   {exercise.name}
