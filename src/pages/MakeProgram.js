@@ -2,7 +2,7 @@ import TrainingDay from "../components/TrainingDay";
 import {useNavigate} from "react-router-dom";
 
 
-function MakeProgram({isAuth}){
+function MakeProgram({currentProgram, setcurrentProgram, isAuth}){
 
   const navigate = useNavigate();
 
@@ -14,7 +14,7 @@ function MakeProgram({isAuth}){
   if (isAuth) {
     return(
         <div>
-            <TrainingDay/>
+            <TrainingDay currentProgram={currentProgram} setcurrentProgram={setcurrentProgram}/>
         </div>
     )
   }

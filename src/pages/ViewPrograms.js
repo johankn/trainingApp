@@ -14,7 +14,7 @@ import "../resources/viewPrograms.css";
 import ChooseProgramCarousel from "../components/ChooseProgramCarousel";
 import DisplayPrograms from "../components/DisplayPrograms";
 
-function ViewPrograms({ isAuth }) {
+function ViewPrograms({ setcurrentProgram, isAuth }) {
   const navigate = useNavigate();
 
   const toLogin = () => {
@@ -48,6 +48,11 @@ function ViewPrograms({ isAuth }) {
     getPrograms();
   }, []);
 
+  function editProgram() {
+    setcurrentProgram(userPrograms);
+    navigate("/makeprogram");
+  }
+
   return (
     <div>
       {trainingPrograms.length > 0 ? (
@@ -56,7 +61,8 @@ function ViewPrograms({ isAuth }) {
             trainingPrograms={trainingPrograms}
             setUserPrograms={setUserPrograms}
           />
-          {userPrograms ? (
+          <button className="training-submit" onClick={editProgram}> Click here to edit the selected program </button>
+          {userPrograms ? (            
             <DisplayPrograms userPrograms={userPrograms} />
           ) : (
             <h2>No program has been selected yet</h2>
