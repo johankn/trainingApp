@@ -28,6 +28,8 @@ function CreatePost(){
             username: auth.currentUser.displayName,
             image: url,
             title: userPrograms.title,
+            // adds the whole userprogram because DisplayPrograms.js takes this as the parameter
+            program: userPrograms
         });
         navigate("/mainpage");
     };

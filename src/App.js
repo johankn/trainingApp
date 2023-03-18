@@ -9,6 +9,7 @@ import ProgressionChart from "./pages/ProgressionChart";
 import Friends from "./pages/Friends";
 import GeneratedProgram from "./pages/GeneratedProgram";
 import CreatePost from "./pages/CreatePost";
+import PostContent from "./pages/PostContent";
 import { useState, useEffect } from "react";
 import "./resources/app.css";
 import { NavLink } from "react-router-dom";
@@ -106,6 +107,7 @@ function App() {
         <Route path="/progressionchart" element={<ProgressionChart />} />
         <Route path="/friends" element={<Friends />} />
         <Route path="/createpost" element={<CreatePost />} />
+        <Route path="/post/:userID" element={<PostContent/>}/>
       </Routes>
     </Router>
   );
