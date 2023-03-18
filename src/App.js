@@ -107,7 +107,7 @@ function App() {
         <Route path="/progressionchart" element={<ProgressionChart />} />
         <Route path="/friends" element={<Friends />} />
         <Route path="/createpost" element={<CreatePost />} />
-        <Route path="/post/:userID" element={<PostContent/>}/>
+        <Route path="/post/:postId" element={<PostContent/>}/>
       </Routes>
     </Router>
   );

@@ -13,8 +13,6 @@ function MainPage() {
   const getPosts = async () => {
     try {
       const data = await getDocs(postCollectionRef);
-      const currentUser = auth.currentUser;
-      console.log(currentUser.uid);
       const posts = data.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
