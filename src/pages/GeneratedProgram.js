@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../resources/generatedProgram.css";
 import { useNavigate } from "react-router-dom";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, getDocs, collection } from "firebase/firestore";
 import { db, auth } from "../firebase-config";
+import DisplayPrograms from "../components/DisplayPrograms";
+
 
 function GeneratedProgram() {
   const [trainingGoals] = useState([
@@ -42,6 +44,32 @@ function GeneratedProgram() {
     // }
   };
 
+  const [trainingPrograms, setTrainingPrograms] = useState([]);
+  const [userPrograms, setUserPrograms] = useState();
+
+  const getPrograms = async () => {
+    try {
+      const data = await getDocs(trainingProgramsCollectionRef);
+      const currentUser = auth.currentUser;
+      console.log(currentUser.uid);
+      const programs = data.docs
+        .map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }))
+        .filter((program) => program.author.id === currentUser.uid);
+      
+      setTrainingPrograms(programs);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    console.log("Effect called");
+    getPrograms();
+  }, []);
+
   return (
     <div className="main-page">
       <h2 className="training-title">Generate Training Program</h2>
@@ -56,6 +84,11 @@ function GeneratedProgram() {
               {goal.name}
             </button>
           ))}
+          {userPrograms ? (            
+            <DisplayPrograms userPrograms={userPrograms} />
+          ) : (
+            <h2>No program has been selected yet</h2>
+          )}
         </div>
         <br></br>
         <br></br>
