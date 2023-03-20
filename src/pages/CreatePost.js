@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../resources/createPost.css";
 import ChooseProgramCarousel from "../components/ChooseProgramCarousel";
+import DisplayPrograms from "../components/DisplayPrograms";
 import { useNavigate } from "react-router-dom";
 import { auth, db, uploadImg } from "../firebase-config";
 import { getDocs, collection, addDoc} from "firebase/firestore";
@@ -27,6 +28,8 @@ function CreatePost(){
             username: auth.currentUser.displayName,
             image: url,
             title: userPrograms.title,
+            // adds the whole userprogram because DisplayPrograms.js takes this as the parameter
+            program: userPrograms
         });
         navigate("/mainpage");
     };
@@ -61,7 +64,13 @@ function CreatePost(){
             <ChooseProgramCarousel
             trainingPrograms={trainingPrograms}
             setUserPrograms={setUserPrograms}
+            onClick={console.log(userPrograms)}
             />
+            {userPrograms ? (            
+            <DisplayPrograms userPrograms={userPrograms} />
+              ) : (
+                <h2>No program has been selected yet</h2>
+              )}
             <input type="file" id="fileInput" onChange={
             (e) => {
                 uploadImg(e.target.files[0], auth.currentUser, 'postImages', userPrograms.title, setUrl);

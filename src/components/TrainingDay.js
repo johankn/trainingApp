@@ -66,6 +66,7 @@ function TrainingProgram( currentProgram, setcurrentProgram) {
 
     // Check if any input fields are empty
     if (!newExercise.name || !newExercise.sets || !newExercise.reps) {
+      alert("Every exercise must have atleast 1 rep/set!")
       return;
     }
     const id = trainingDays[currentDayIndex].exercises.length + 1;
@@ -108,7 +109,6 @@ function TrainingProgram( currentProgram, setcurrentProgram) {
       alert("You must set a title for the training prgram.");
       return;
     }
-    // try {
     addDoc(trainingProgramsCollectionRef, {
       title,
       week,
@@ -116,9 +116,6 @@ function TrainingProgram( currentProgram, setcurrentProgram) {
       author: { name: auth.currentUser.displayName, id: auth.currentUser.uid },
     });
     navigate("/mainpage");
-    //  catch (error) {
-    //   alert("Add at least one exercise to your program!");
-    // }
   };
 
   const [exercises, setExercises] = useState([
@@ -181,7 +178,7 @@ function TrainingProgram( currentProgram, setcurrentProgram) {
           ))}
         </div>
         <br></br>
-        <label className="program-title"> Program Title:</label>
+        <label className="trainingday-title"> Program Title:</label>
         <br></br>
         <input
           type="text"
@@ -191,30 +188,32 @@ function TrainingProgram( currentProgram, setcurrentProgram) {
           value={title}
         />
         <br></br>
-        <label className="program-title"> Week:</label>
+        <label className="trainingday-title"> Week:</label>
         <br></br>
         <input
           type="number"
           name="week"
+          min="1"
           className="week-field"
           onChange={(e) => setWeek(e.target.value)}
           value={week}
         />
         <h3 className="current-day">{trainingDays[currentDayIndex].name}</h3>
         <form onSubmit={handleSubmit} className="training-form">
-          <label> Exercise: </label>
+          <label className="trainingday-title"> Exercise: </label>
           <div>
             <input
               type="text"
               placeholder="Search..."
               value={query}
               onChange={handleSearchChange}
+              className="week-field"
             />
             {query.length >= 1 &&
               filteredExercises.slice(0,5).map((exercise) => (
                 <div
                   key={exercise.id}
-                  style={{ cursor: "pointer" }}
+                  className="select-exercise"
                   onClick={() => handleExerciseSelect(exercise.name)}
                 >
                   {exercise.name}
@@ -228,6 +227,7 @@ function TrainingProgram( currentProgram, setcurrentProgram) {
           <input
             type="number"
             name="sets"
+            min="1"
             value={newExercise.sets}
             onChange={handleInputChange}
           />
@@ -238,6 +238,7 @@ function TrainingProgram( currentProgram, setcurrentProgram) {
           <input
             type="number"
             name="reps"
+            min="1"
             value={newExercise.reps}
             onChange={handleInputChange}
           />
