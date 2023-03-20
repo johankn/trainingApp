@@ -13,6 +13,7 @@ import { useState, useEffect } from "react";
 import "./resources/app.css";
 import { NavLink } from "react-router-dom";
 import { auth } from "./firebase-config";
+import ChooseProgramType from "./pages/ChooseProgramType";
 
 function App() {
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
@@ -35,9 +36,9 @@ function App() {
     }
   }
 
-  const toCreatePrograms = () => {
+  const toChooseProgram = () => {
     if (isAuth) {
-      window.location.pathname = "/MakeProgram";
+      window.location.pathname = "/ChooseProgramType";
     } else {
       window.location.pathname = "/";
     }
@@ -67,23 +68,16 @@ function App() {
         console.log(auth);
     }   
     })}, [])
-  const toGenerateProgram = () => {
-    if (isAuth) {
-      window.location.pathname = "/GeneratedProgram";
-    } else {
-      window.location.pathname = "/";
-    }
-  }
+  
 
   return (
     <Router>
       <nav className="nav">
         <img onClick={toMainPage} src="./image.png" alt="Logo" className="nav-logo" />
         <ul className="nav-items">
-          <li onClick={toCreatePrograms}>Create Programs</li>
+          <li onClick={toChooseProgram}>Create Programs</li>
           <li onClick={toViewPrograms}>View Programs</li>
           <li onClick={toSeeProgression}>See Progression</li>
-          <li onClick={toGenerateProgram}>Generate Training Program</li>
         </ul>
         <a onClick={goToProfile} className="Profile">
             <img
@@ -101,6 +95,7 @@ function App() {
         <Route path="/makeprogram" element={<MakeProgram currentProgram={currentProgram} setcurrentProgram={setcurrentProgram} isAuth={isAuth} />} />
         <Route path="/viewprograms" element={<ViewPrograms setcurrentProgram={setcurrentProgram} isAuth={isAuth} />} />
         <Route path="/GeneratedProgram" element={<GeneratedProgram isAuth={isAuth} />} />
+        <Route path="/ChooseProgramType" element={<ChooseProgramType isAuth={isAuth} />} />
 
         {/* TODO authentication */}
         <Route path="/progressionchart" element={<ProgressionChart />} />

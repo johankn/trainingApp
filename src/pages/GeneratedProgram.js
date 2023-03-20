@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "../resources/generatedProgram.css";
 import { useNavigate } from "react-router-dom";
-import { addDoc, getDocs, collection } from "firebase/firestore";
+import { addDoc, getDocs, getDoc, doc, collection } from "firebase/firestore";
 import { db, auth } from "../firebase-config";
 import DisplayPrograms from "../components/DisplayPrograms";
 
 
+
 function GeneratedProgram() {
-  const [trainingGoals] = useState([
+  const [trainingDay] = useState([
     { name: "Back & Biceps" },
     { name: "Chest,shoulders & triceps" },
     { name: "Quads & calves" },
@@ -22,7 +23,7 @@ function GeneratedProgram() {
 
 
 
-  const handleSelectDay = (goalIndex) => {
+  const handleSelectGoal = (goalIndex) => {
     setCurrentGoalIndex(goalIndex);
   };
 
@@ -35,7 +36,7 @@ function GeneratedProgram() {
     // try {
     addDoc(trainingProgramsCollectionRef, {
       week,
-      trainingGoals,
+      trainingDay,
       author: { name: auth.currentUser.displayName, id: auth.currentUser.uid },
     });
     navigate("/mainpage");
@@ -57,7 +58,7 @@ function GeneratedProgram() {
           ...doc.data(),
           id: doc.id,
         }))
-        .filter((program) => program.author.id === currentUser.uid);
+        .filter((program) => program.author.id === "GenerateBack&biceps");
       
       setTrainingPrograms(programs);
     } catch (err) {
@@ -65,20 +66,40 @@ function GeneratedProgram() {
     }
   };
 
+  
+
   useEffect(() => {
     console.log("Effect called");
     getPrograms();
   }, []);
 
+  /*const fetchPost = async () => {
+    const postRef = doc(db, "trainingPrograms", Tl1tbZwa6jt1HrUJoEp8);
+    const postDoc = await getDoc(postRef);
+    if (postDoc.exists()) {
+      setPostContent(postDoc.data());
+    }
+  };
+
+  useEffect(() => {
+    console.log("Effect called");
+    fetchPost();
+  }, []);*/
+
+  
   return (
     <div className="main-page">
       <h2 className="training-title">Generate Training Program</h2>
+      {trainingPrograms.length > 0 ? (
       <div>
         <div>
-          {trainingGoals.map((goal, index) => (
+          {trainingDay.map((goal, index) => (
             <button
               key={index}
-              onClick={() => handleSelectDay(index)}
+              onClick={event => {
+                handleSelectGoal(index);
+                setUserPrograms(goal);
+                }}
               className="select-goal"
             >
               {goal.name}
@@ -89,6 +110,7 @@ function GeneratedProgram() {
           ) : (
             <h2>No program has been selected yet</h2>
           )}
+          
         </div>
         <br></br>
         <br></br>
@@ -100,7 +122,7 @@ function GeneratedProgram() {
           className="week-field"
           onChange={(e) => setWeek(e.target.value)}
         />
-        <h3 className="current-goal">{trainingGoals[currentGoalIndex].name}</h3>
+        <h3 className="current-goal">{trainingDay[currentGoalIndex].name}</h3>
         <form className="training-form">
           <br></br>
         </form>
@@ -109,6 +131,9 @@ function GeneratedProgram() {
         </button>
         
       </div>
+       ) : (
+        <p>No training programs found.</p>
+      )}
     </div>
   );
 }

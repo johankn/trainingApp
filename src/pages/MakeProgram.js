@@ -1,5 +1,6 @@
 import TrainingDay from "../components/TrainingDay";
 import {useNavigate} from "react-router-dom";
+import { useState } from "react";
 
 
 function MakeProgram({currentProgram, setcurrentProgram, isAuth}){
@@ -9,14 +10,14 @@ function MakeProgram({currentProgram, setcurrentProgram, isAuth}){
   const toLogin = () => {
     navigate("/");
   }
-  
+
 
   if (isAuth) {
-    return(
+      return(
         <div>
-            <TrainingDay currentProgram={currentProgram} setcurrentProgram={setcurrentProgram}/>
+          <TrainingDay currentProgram={currentProgram} setcurrentProgram={setcurrentProgram}/>
         </div>
-    )
+      )
   }
   else {
     return(
