@@ -48,49 +48,50 @@ function GeneratedProgram() {
   const [trainingPrograms, setTrainingPrograms] = useState([]);
   const [userPrograms, setUserPrograms] = useState();
 
-  const getPrograms = async () => {
-    try {
-      const data = await getDocs(trainingProgramsCollectionRef);
-      const currentUser = auth.currentUser;
-      console.log(currentUser.uid);
-      const programs = data.docs
-        .map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        }))
-        .filter((program) => program.author.id === "GenerateBack&biceps");
+  // const getPrograms = async () => {
+  //   try {
+  //     const data = await getDocs(trainingProgramsCollectionRef);
+  //     const currentUser = auth.currentUser;
+  //     console.log(currentUser.uid);
+  //     const programs = data.docs
+  //       .map((doc) => ({
+  //         ...doc.data(),
+  //         id: doc.id,
+  //       }))
+  //       .filter((program) => program.author.id === "GenerateBack&biceps");
       
-      setTrainingPrograms(programs);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  //     setTrainingPrograms(programs);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   
 
-  useEffect(() => {
-    console.log("Effect called");
-    getPrograms();
-  }, []);
+  // useEffect(() => {
+  //   console.log("Effect called");
+  //   getPrograms();
+  // }, []);
 
-  /*const fetchPost = async () => {
-    const postRef = doc(db, "trainingPrograms", Tl1tbZwa6jt1HrUJoEp8);
+  const [program, setProgram] = useState();
+  
+  const fetchProgram = async () => {
+    const postRef = doc(db, "trainingPrograms", "mMQHIHe3TNdxhdBUPrAK");
     const postDoc = await getDoc(postRef);
     if (postDoc.exists()) {
-      setPostContent(postDoc.data());
+      setProgram(postDoc.data());
     }
   };
 
   useEffect(() => {
     console.log("Effect called");
-    fetchPost();
-  }, []);*/
+    fetchProgram();
+  }, []);
 
   
   return (
     <div className="main-page">
       <h2 className="training-title">Generate Training Program</h2>
-      {trainingPrograms.length > 0 ? (
       <div>
         <div>
           {trainingDay.map((goal, index) => (
@@ -105,12 +106,6 @@ function GeneratedProgram() {
               {goal.name}
             </button>
           ))}
-          {userPrograms ? (            
-            <DisplayPrograms userPrograms={userPrograms} />
-          ) : (
-            <h2>No program has been selected yet</h2>
-          )}
-          
         </div>
         <br></br>
         <br></br>
@@ -126,14 +121,17 @@ function GeneratedProgram() {
         <form className="training-form">
           <br></br>
         </form>
+        {program ? (            
+            <DisplayPrograms userPrograms={program} />
+          ) : (
+            <h2>No program has been selected yet</h2>
+          )}
         <button onClick={makeProgram} className="training-submit">
           Save Program
         </button>
         
       </div>
-       ) : (
-        <p>No training programs found.</p>
-      )}
+       
     </div>
   );
 }
