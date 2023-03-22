@@ -7,7 +7,7 @@ import ProfilePage from "./pages/ProfilePage";
 import ViewPrograms from "./pages/ViewPrograms";
 import ProgressionChart from "./pages/ProgressionChart";
 import Friends from "./pages/Friends";
-import GeneratedProgram from "./pages/GeneratedProgram";
+import GeneratedProgram from "./components/GeneratedProgram";
 import CreatePost from "./pages/CreatePost";
 import PostContent from "./pages/PostContent";
 import CreateCommunity from "./pages/CreateCommunity";
@@ -69,13 +69,7 @@ function App() {
         console.log(auth);
     }   
     })}, [])
-  const toGenerateProgram = () => {
-    if (isAuth) {
-      window.location.pathname = "/GeneratedProgram";
-    } else {
-      window.location.pathname = "/";
-    }
-  }
+
 
   return (
     <Router>
@@ -85,7 +79,6 @@ function App() {
           <li onClick={toCreatePrograms}>Create Programs</li>
           <li onClick={toViewPrograms}>View Programs</li>
           <li onClick={toSeeProgression}>See Progression</li>
-          <li onClick={toGenerateProgram}>Generate Training Program</li>
         </ul>
         <a onClick={goToProfile} className="Profile">
             <img
@@ -104,6 +97,7 @@ function App() {
         <Route path="/viewprograms" element={<ViewPrograms setcurrentProgram={setcurrentProgram} isAuth={isAuth} />} />
         <Route path="/GeneratedProgram" element={<GeneratedProgram isAuth={isAuth} />} />
         <Route path="/CreateCommunity" element={!isAuth ? (<Login/>) : (<CreateCommunity/> )}/>
+
         {/* TODO authentication */}
         <Route path="/progressionchart" element={<ProgressionChart />} />
         <Route path="/friends" element={<Friends />} />
