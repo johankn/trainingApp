@@ -2,11 +2,12 @@ import "../resources/mainPage.css";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { auth, db } from "../firebase-config";
-import { getDocs, collection } from "firebase/firestore";
+import { getDocs, collection, query, where, addDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import ChooseCommunityCarousel from "../components/ChooseCommunityCarousel";
 
 function MainPage( setSelectedCommunity) {
+    const friendRequestsCollectionRef = collection(db, "friendRequests");
   const navigate = useNavigate();
   const postCollectionRef = collection(db, "posts");
   const [posts, setPosts] = useState([]);
@@ -15,6 +16,9 @@ function MainPage( setSelectedCommunity) {
   const [chosenComunity, setChosenComunity] = useState();
 
   const [shownPosts, setShownPosts] = useState();
+  const [friends, setFriends] = useState([]);
+
+  const [hasLoaded, setSasLoaded] = useState(false);
 
   const getPosts = async () => {
     try {
@@ -42,11 +46,27 @@ function MainPage( setSelectedCommunity) {
     navigate("/CreateCommunity");
   }
 
+  const getFriends = async () => {
+    try {
+        console.log('hello');
+        const data = await getDocs(collection(db, 'users'));
+        const users = data.docs.map((doc) => ({
+            user: doc.data(),
+            id: doc.id,
+          }));
+
+          setFriends(users.find(user => user.id === auth.currentUser.uid).user.friends);
+          
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   React.useEffect(() => {auth.onAuthStateChanged(user => {
     if (user) {    
         getUserList();
-        console.log(communities);
-        
+        getFriends();
+        setSasLoaded(true);
     }   
     })}, []) 
 
@@ -84,6 +104,33 @@ function MainPage( setSelectedCommunity) {
         }
       };
 
+      const handleSendFriendRequest = async (userId) => {
+        try {
+          // Check if a friend request has already been sent
+          const existingRequestQuery = query(
+            friendRequestsCollectionRef,
+            where("senderId", "==", auth.currentUser.uid),
+            where("receiverId", "==", userId)
+          );
+          const existingRequest = await getDocs(existingRequestQuery);
+          if (!existingRequest.empty) {
+            window.alert("Friend request already sent");
+            return;
+          }
+    
+          // Create a new friend request document
+          const newRequest = {
+            senderId: auth.currentUser.uid,
+            receiverId: userId,
+            status: "requested",
+          };
+          await addDoc(friendRequestsCollectionRef, newRequest);
+          window.alert("Friend request sent!")
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
     React.useEffect(() => {
         setShownPosts(
             posts.map((post) => (
@@ -96,6 +143,12 @@ function MainPage( setSelectedCommunity) {
                   <div className="post-details">
                     <h2 className="post-title">{post.title}</h2>
                     <p className="post-user">Posted by {post.username}</p>
+                    {((post.program.author.id !== auth.currentUser.uid) && hasLoaded && (!friends.includes(post.program.author.id))) ?
+                        (<button className="post-user" onClick={() => handleSendFriendRequest(post.program.author.id)}>
+                            Add {post.username} as a friend 
+                        </button>) 
+                        :
+                        (<br></br>)}
                   </div>
                 </div>
             ))
@@ -119,8 +172,6 @@ function MainPage( setSelectedCommunity) {
             }}
         );
           
-
-
     } catch (error) {
       console.log(error);
     }
