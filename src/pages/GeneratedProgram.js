@@ -48,39 +48,64 @@ function GeneratedProgram() {
   const [trainingPrograms, setTrainingPrograms] = useState([]);
   const [userPrograms, setUserPrograms] = useState();
 
-  // const getPrograms = async () => {
-  //   try {
-  //     const data = await getDocs(trainingProgramsCollectionRef);
-  //     const currentUser = auth.currentUser;
-  //     console.log(currentUser.uid);
-  //     const programs = data.docs
-  //       .map((doc) => ({
-  //         ...doc.data(),
-  //         id: doc.id,
-  //       }))
-  //       .filter((program) => program.author.id === "GenerateBack&biceps");
-      
-  //     setTrainingPrograms(programs);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+   /*const getPrograms = async () => {
+     try {
+       const data = await getDocs(trainingProgramsCollectionRef);
+       const currentUser = auth.currentUser;
+       console.log(currentUser.uid);
+       const programs = data.docs
+         .map((doc) => ({
+           ...doc.data(),
+           id: doc.id,
+         }))
+         .filter((program) => program.author.id === "mMQHIHe3TNdxhdBUPrAK");
+         
+         
+            
+       setTrainingPrograms(programs);
+     } catch (err) {
+       console.log(err);
+     }
+   };
 
-  
-
-  // useEffect(() => {
-  //   console.log("Effect called");
-  //   getPrograms();
-  // }, []);
+   useEffect(() => {
+     console.log("Effect called");
+     getPrograms();
+   }, []);
+   */
 
   const [program, setProgram] = useState();
-  
+  const quadsRef = doc(db, "trainingPrograms", "mMQHIHe3TNdxhdBUPrAK");
+  const backRef = doc(db, "trainingPrograms", "Tl1tbZwa6jt1HrUJoEp8");
+  const chestRef = doc(db, "trainingPrograms", "zS0uvbCF1R0HDINBCnvV");
+  const glutesRef = doc(db, "trainingPrograms", "pfvqXna6AojbOno2hBg0");
+  const absRef = doc(db, "trainingPrograms", "UgOdfHOzRfN5IayZCoD1");
+
   const fetchProgram = async () => {
-    const postRef = doc(db, "trainingPrograms", "mMQHIHe3TNdxhdBUPrAK");
-    const postDoc = await getDoc(postRef);
-    if (postDoc.exists()) {
-      setProgram(postDoc.data());
+    
+    const quadsDoc = await getDoc(quadsRef);
+    const backDoc = await getDoc(backRef);
+    const chestDoc = await getDoc(chestRef);
+    const glutesDoc = await getDoc(glutesRef);
+    const absDoc = await getDoc(absRef);
+
+    if (quadsDoc.exists() && currentGoalIndex ===2) {
+      setProgram(quadsDoc.data());
+      setTrainingPrograms(program);
+      setUserPrograms(program);
     }
+    else if (backDoc.exists() && currentGoalIndex ===0) {
+        setProgram(backDoc.data());
+      }
+    else if (chestDoc.exists() && currentGoalIndex ===1) {
+        setProgram(chestDoc.data());
+      }
+    else if (glutesDoc.exists() && currentGoalIndex ===3) {
+        setProgram(glutesDoc.data());
+      }
+    else if (absDoc.exists() && currentGoalIndex ===4) {
+        setProgram(absDoc.data());
+      }
   };
 
   useEffect(() => {
@@ -97,10 +122,13 @@ function GeneratedProgram() {
           {trainingDay.map((goal, index) => (
             <button
               key={index}
-              onClick={event => {
-                handleSelectGoal(index);
-                setUserPrograms(goal);
+              onClick={() => {
+                setCurrentGoalIndex(index);
+                fetchProgram();
+                //setTrainingPrograms(program);
+                //setUserPrograms(program);
                 }}
+                
               className="select-goal"
             >
               {goal.name}
