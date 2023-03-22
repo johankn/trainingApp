@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../resources/trainingDay.css";
 import { useNavigate } from "react-router-dom";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, setDoc, doc, collection } from "firebase/firestore";
 import { db, auth } from "../firebase-config";
 
 function TrainingProgram( currentProgram, setcurrentProgram) {
@@ -109,12 +109,28 @@ function TrainingProgram( currentProgram, setcurrentProgram) {
       alert("You must set a title for the training prgram.");
       return;
     }
-    addDoc(trainingProgramsCollectionRef, {
-      title,
-      week,
-      trainingDays,
-      author: { name: auth.currentUser.displayName, id: auth.currentUser.uid },
-    });
+
+    if (currentProgram) {
+        setDoc(
+            doc(db, 'trainingPrograms', currentProgram.currentProgram.id),
+            {
+            title,
+            week,
+            trainingDays,
+            author: { name: auth.currentUser.displayName, id: auth.currentUser.uid },
+            }
+        );
+
+    } else {
+        addDoc(trainingProgramsCollectionRef, {
+        title,
+        week,
+        trainingDays,
+        author: { name: auth.currentUser.displayName, id: auth.currentUser.uid },
+        });  
+    }
+
+    
     navigate("/mainpage");
   };
 
