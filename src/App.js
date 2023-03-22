@@ -97,6 +97,7 @@ function App() {
         <Route path="/viewprograms" element={<ViewPrograms setcurrentProgram={setcurrentProgram} isAuth={isAuth} />} />
         <Route path="/GeneratedProgram" element={<GeneratedProgram isAuth={isAuth} />} />
         <Route path="/CreateCommunity" element={!isAuth ? (<Login/>) : (<CreateCommunity/> )}/>
+
         {/* TODO authentication */}
         <Route path="/progressionchart" element={<ProgressionChart />} />
         <Route path="/friends" element={<Friends />} />
