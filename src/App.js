@@ -60,6 +60,14 @@ function App() {
       window.location.pathname = "/";
     }
   }
+  
+  const toFriends = () => {
+    if (isAuth) {
+      window.location.pathname = "/Friends";
+    } else {
+      window.location.pathname = "/";
+    }
+  }
 
   useEffect(() => {auth.onAuthStateChanged(user => {
     if (user) {
@@ -79,6 +87,7 @@ function App() {
           <li onClick={toCreatePrograms}>Create Programs</li>
           <li onClick={toViewPrograms}>View Programs</li>
           <li onClick={toSeeProgression}>See Progression</li>
+          <li onClick={toFriends}>Friends</li>
         </ul>
         <a onClick={goToProfile} className="Profile">
             <img

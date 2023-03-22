@@ -14,6 +14,7 @@ import {
   where,
   query,
 } from "firebase/firestore";
+import "../resources/friends.css";
 
 function Friends() {
   const usersCollectionRef = collection(db, "users");
@@ -120,15 +121,15 @@ function Friends() {
     const senderName = sender ? sender.username : "Unknown User";
     
     return (
-      <div key={request.id}>
+      <div className="friend-requests-container" key={request.id}>
        <p> {senderName} wants to be friends. Status:{" "}
                   {request.status}</p>
                 {request.status === "requested" && (
                   <div>
-                    <button onClick={() => handleAcceptFriendRequest(request.id, request.senderId)}>
+                    <button className="friend-response-button" onClick={() => handleAcceptFriendRequest(request.id, request.senderId)}>
                       Accept
                     </button>
-                    <button onClick={() => handleDeclineFriendRequest(request.id)}>
+                    <button className="friend-response-button" onClick={() => handleDeclineFriendRequest(request.id)}>
                       Decline
                     </button>
                   </div>
@@ -201,7 +202,7 @@ function Friends() {
         ) : isPending ? (
           <span> Friend request pending</span>
         ) : (
-          <button onClick={() => handleSendFriendRequest(user.id)}>
+          <button className="add-friend-button" onClick={() => handleSendFriendRequest(user.id)}>
             Add Friend
           </button>
         )}
@@ -218,8 +219,9 @@ function Friends() {
   );
 
   return (
-      <div>
+      <div className="friends-main-page">
         <input
+          className="friends-searchbar"
           type="text"
           placeholder="Search username"
           onChange={(e) => setSearchTerm(e.target.value)}
