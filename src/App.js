@@ -10,6 +10,7 @@ import Friends from "./pages/Friends";
 import GeneratedProgram from "./pages/GeneratedProgram";
 import CreatePost from "./pages/CreatePost";
 import PostContent from "./pages/PostContent";
+import CreateCommunity from "./pages/CreateCommunity";
 import { useState, useEffect } from "react";
 import "./resources/app.css";
 import { NavLink } from "react-router-dom";
@@ -102,7 +103,7 @@ function App() {
         <Route path="/makeprogram" element={<MakeProgram currentProgram={currentProgram} setcurrentProgram={setcurrentProgram} isAuth={isAuth} />} />
         <Route path="/viewprograms" element={<ViewPrograms setcurrentProgram={setcurrentProgram} isAuth={isAuth} />} />
         <Route path="/GeneratedProgram" element={<GeneratedProgram isAuth={isAuth} />} />
-
+        <Route path="/CreateCommunity" element={!isAuth ? (<Login/>) : (<CreateCommunity/> )}/>
         {/* TODO authentication */}
         <Route path="/progressionchart" element={<ProgressionChart />} />
         <Route path="/friends" element={<Friends />} />
