@@ -40,7 +40,7 @@ function MainPage() {
     navigate("/CreateCommunity");
   }
 
-  React.useEffect(async () => {auth.onAuthStateChanged(user => {
+  React.useEffect( () => {auth.onAuthStateChanged(user => {
     if (user) {    
         getUserList();
         console.log(communities);
