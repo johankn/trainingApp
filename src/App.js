@@ -20,6 +20,7 @@ function App() {
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
   const [currentProgram, setcurrentProgram] = useState(null);
   const [url, setUrl] = useState("profile-icon.png");
+  const [selectedCommunity, setSelectedCommunity] = useState();
 
   function goToProfile() {
     if (isAuth) {
@@ -96,14 +97,14 @@ function App() {
         </a>
       </nav>
       <Routes>
-        <Route path="/mainpage" element={<MainPage setIsAuth={setIsAuth} />} />
+        <Route path="/mainpage" element={<MainPage setSelectedCommunity={setSelectedCommunity} />} />
         <Route path="/" element={<Login setIsAuth={setIsAuth} />} />
         <Route path="/registration" element={<Registration isAuth={isAuth} />}/>
         <Route path="/profile" element={!isAuth ? (<Login/>) : (<ProfilePage url={url} setUrl={setUrl} setIsAuth={setIsAuth}/> )} loader={goToProfile}/>
         <Route path="/makeprogram" element={<MakeProgram currentProgram={currentProgram} setcurrentProgram={setcurrentProgram} isAuth={isAuth} />} />
         <Route path="/viewprograms" element={<ViewPrograms setcurrentProgram={setcurrentProgram} isAuth={isAuth} />} />
         <Route path="/GeneratedProgram" element={<GeneratedProgram isAuth={isAuth} />} />
-        <Route path="/CreateCommunity" element={!isAuth ? (<Login/>) : (<CreateCommunity/> )}/>
+        <Route path="/CreateCommunity" element={!isAuth ? (<Login/>) : (<CreateCommunity selectedCommunity={selectedCommunity}/> )}/>
         {/* TODO authentication */}
         <Route path="/progressionchart" element={<ProgressionChart />} />
         <Route path="/friends" element={<Friends />} />

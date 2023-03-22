@@ -6,13 +6,15 @@ import { getDocs, collection } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import ChooseCommunityCarousel from "../components/ChooseCommunityCarousel";
 
-function MainPage() {
+function MainPage( setSelectedCommunity) {
   const navigate = useNavigate();
   const postCollectionRef = collection(db, "posts");
   const [posts, setPosts] = useState([]);
   const communityCollectionRef = collection(db, "communities");
   const [communities, setCommunities] = useState([]);
   const [chosenComunity, setChosenComunity] = useState();
+
+  const [shownPosts, setShownPosts] = useState();
 
   const getPosts = async () => {
     try {
@@ -40,7 +42,7 @@ function MainPage() {
     navigate("/CreateCommunity");
   }
 
-  React.useEffect( () => {auth.onAuthStateChanged(user => {
+  React.useEffect(() => {auth.onAuthStateChanged(user => {
     if (user) {    
         getUserList();
         console.log(communities);
@@ -48,16 +50,58 @@ function MainPage() {
     }   
     })}, []) 
 
-    // React.useEffect(() => {
-    //     const data = getDocs(postCollectionRef);
-    //     const posts = data.docs.map((doc) => ({
-    //         ...doc.data(),
-    //         id: doc.id,
-    //       }));
+    function editCommunity() {
+        console.log(setSelectedCommunity);
+        setSelectedCommunity(chosenComunity);
+        navigate("/CreateCommunity");
+    }
 
-    //       const newPosts = posts.find(post => chosenComunity.community.sharedPosts.includes(post.id));
-    //       setPosts(newPosts);
-    // }, [chosenComunity])
+    React.useEffect(() => {
+        if (chosenComunity) {
+            getCommunityPosts();
+        }
+        
+    }, [chosenComunity])
+
+    const getCommunityPosts = async () => {
+        try {
+          const data = await getDocs(postCollectionRef);
+          const posts = data.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          }));
+
+          const communityPosts = [];
+          posts.forEach((post) => {
+            if (chosenComunity.community.sharedPosts.includes(post.id)) {
+                communityPosts.push(post);
+            }
+        }
+        );
+        setPosts(communityPosts);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+
+    React.useEffect(() => {
+        setShownPosts(
+            posts.map((post) => (
+                <div className="post-container" key={post.id}>
+                  <div className="post-image">
+                    <Link to={`/post/${post.id}`}>
+                      <img src={post.image} alt={post.username} />
+                    </Link>
+                  </div>
+                  <div className="post-details">
+                    <h2 className="post-title">{post.title}</h2>
+                    <p className="post-user">Posted by {post.username}</p>
+                  </div>
+                </div>
+            ))
+        );
+    }, [posts])
+
 
   const getUserList = async () => {
     try {
@@ -102,6 +146,8 @@ function MainPage() {
         <p>
             {chosenComunity.community.description}
         </p>
+            {(chosenComunity.community.admins.includes(auth.currentUser.uid)) && 
+            <button className="create-post-button" onClick={editCommunity}> Community settings </button>}
         </div>
         ) : (
             <br></br>
@@ -110,19 +156,7 @@ function MainPage() {
       </div>
       <div className="feed-container">
         {<ChooseCommunityCarousel communities={communities} setUserCommunity={setChosenComunity} />}
-        {posts.map((post) => (
-          <div className="post-container" key={post.id}>
-            <div className="post-image">
-              <Link to={`/post/${post.id}`}>
-                <img src={post.image} alt={post.username} />
-              </Link>
-            </div>
-            <div className="post-details">
-              <h2 className="post-title">{post.title}</h2>
-              <p className="post-user">Posted by {post.username}</p>
-            </div>
-          </div>
-        ))}
+        {shownPosts}
       </div>
     </div>
   );

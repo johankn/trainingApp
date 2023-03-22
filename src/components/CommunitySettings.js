@@ -144,21 +144,20 @@ function CommunitySettings({ community }) {
             console.log(communities);
 
             if (community) {
-                const inDB = communities.find(community => community.id === community)
                 if (communityName === '') {
-                    setCommunityName(inDB.community.name);
+                    setCommunityName(community.community.name);
                 }
                 if (description === '') {
-                    setDescription(inDB.community.description);
+                    setDescription(community.community.description);
                 }
                 if (admins.length === 0) {
                     admins.push(auth.currentUser.uid);
-                    setAdmins(inDB.community.admins);
+                    setAdmins(community.community.admins);
                 }
                 if (members.length === 0) {
-                    setMembers(inDB.community.members);
+                    setMembers(community.community.members);
                 }
-                setDoc(doc(db, "communities", community), {
+                setDoc(doc(db, "communities", community.id), {
                     name:communityName, 
                     description: description,
                     admins: admins,
@@ -234,26 +233,6 @@ function CommunitySettings({ community }) {
             )}
 
             <div>
-                {community ? (
-                    <a className="profileHyperlink">
-                        <img
-                            src="../logo.png"
-                            alt="Profile-Placeholder"
-                            className="profilePlaceholder"
-                        />
-                    </a>
-                ) : (
-                    <a className="profileHyperlink">
-                        <img
-                            src="../logo.png"
-                            alt="Profile-Placeholder"
-                            className="profilePlaceholder"
-                        />
-                    </a>
-                )}
-            </div>
-
-            <div>
                 <h3> {communityName ? (`Community name: ${communityName} `) : ("No community-name has been chosen")} </h3>
                 <input
                   type="Username"
@@ -261,11 +240,13 @@ function CommunitySettings({ community }) {
                   className="submit-field"
                   value={communityName}
                   onChange={(e) => setCommunityName(e.target.value)}
-                  placeholder="Community Name"
+                  placeholder={community ? (community.community.name) : ("Community Name")}
                 ></input>
             </div>
             <h3> Description </h3>
-            <textarea className="submit-field" onChange={(e) => {setDescription(e.target.value)}}></textarea>
+            <textarea className="submit-field" 
+            placeholder={community ? (community.community.description) : ("Write a community description")} 
+            onChange={(e) => {setDescription(e.target.value)}}></textarea>
             <br></br>
             {adminTable}
             {memberTable}

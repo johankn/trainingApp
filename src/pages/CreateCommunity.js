@@ -16,7 +16,7 @@ import {
   query,
 } from "firebase/firestore";
 
-function CreateCommunity() {
+function CreateCommunity(selectedCommunity) {
   const usersCollectionRef = collection(db, "users");
   const [users, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -25,7 +25,7 @@ function CreateCommunity() {
   const [sentFriendRequests, setSentFriendRequests] = useState([]);
 
     return (
-        <CommunitySettings null/>
+        <CommunitySettings />
     );
 }
 
