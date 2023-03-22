@@ -6,7 +6,7 @@ import { getDocs, collection, query, where, addDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import ChooseCommunityCarousel from "../components/ChooseCommunityCarousel";
 
-function MainPage( setSelectedCommunity) {
+function MainPage( props) {
     const friendRequestsCollectionRef = collection(db, "friendRequests");
   const navigate = useNavigate();
   const postCollectionRef = collection(db, "posts");
@@ -71,8 +71,7 @@ function MainPage( setSelectedCommunity) {
     })}, []) 
 
     function editCommunity() {
-        console.log(setSelectedCommunity);
-        setSelectedCommunity(chosenComunity);
+        props.setSelectedCommunity(chosenComunity);
         navigate("/CreateCommunity");
     }
 

@@ -15,7 +15,7 @@ import {
 } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
-function CommunitySettings({ community }) {
+function CommunitySettings({ communityToEdit }) {
     const usersCollectionRef = collection(db, "users");
     const communityCollectionRef = collection(db, "communities");
     const [communityName, setCommunityName] = useState("");
@@ -31,8 +31,14 @@ function CommunitySettings({ community }) {
     const [members, setMembers] = useState([]);
     const [membersShown, setMembersShown] = useState([]);
     const [friends, setFriends] = useState([]);
+
+    const [community, setCommunity] = useState();
     
     const navigate = useNavigate();
+
+    React.useEffect(() => {setCommunity(communityToEdit)}, [communityToEdit])
+
+    console.log(community);
 
     React.useEffect(() => {auth.onAuthStateChanged(user => {
         if (user) {    
@@ -43,6 +49,8 @@ function CommunitySettings({ community }) {
             )
         }   
     })}, []) 
+
+
 
     const getUserList = async () => {
         try {
@@ -141,7 +149,6 @@ function CommunitySettings({ community }) {
                 community: doc.data(),
                 id: doc.id,
               }));
-            console.log(communities);
 
             if (community) {
                 if (communityName === '') {
@@ -187,10 +194,6 @@ function CommunitySettings({ community }) {
      };
 
     function makeTable(setstate, people, name, selecterFunc, deselectFunc) {
-        console.log(people);
-        console.log(friends);
-        console.log(admins);
-        console.log(members);
         setstate(<div>
                 <h3> {name}: </h3>
                     <table>
@@ -226,7 +229,7 @@ function CommunitySettings({ community }) {
     return (
     <form>
           <div className="main-page">
-            {community ? (
+            {false ? (//community ? (
                 <p className="title"> Community Settings </p>
             ) : (
                 <p className="title"> New Community </p>
@@ -251,7 +254,7 @@ function CommunitySettings({ community }) {
             {adminTable}
             {memberTable}
             {(
-                community || communityName 
+                communityName || community
             ) ? (
                 <button className="submit saveChanges" onClick={saveChanges}>Create Community</button>
             ) : (

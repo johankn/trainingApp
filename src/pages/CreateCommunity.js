@@ -25,7 +25,7 @@ function CreateCommunity(selectedCommunity) {
   const [sentFriendRequests, setSentFriendRequests] = useState([]);
 
     return (
-        <CommunitySettings />
+        <CommunitySettings communityToEdit={selectedCommunity.selectedCommunity}/>
     );
 }
 
