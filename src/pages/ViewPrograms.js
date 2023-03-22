@@ -63,7 +63,7 @@ function ViewPrograms({ setcurrentProgram, isAuth }) {
           />
           {userPrograms ? (
             <div className="view-program-main-page">            
-            <button className="training-submit" onClick={editProgram}> Click here to edit the selected program </button>
+            <button className="training-submit" onClick={editProgram}> Edit selected program </button>
             <DisplayPrograms userPrograms={userPrograms} />
             </div>
           ) : (
