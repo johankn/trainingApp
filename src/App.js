@@ -7,7 +7,7 @@ import ProfilePage from "./pages/ProfilePage";
 import ViewPrograms from "./pages/ViewPrograms";
 import ProgressionChart from "./pages/ProgressionChart";
 import Friends from "./pages/Friends";
-import GeneratedProgram from "./pages/GeneratedProgram";
+import GeneratedProgram from "./components/GeneratedProgram";
 import CreatePost from "./pages/CreatePost";
 import PostContent from "./pages/PostContent";
 import CreateCommunity from "./pages/CreateCommunity";
@@ -61,6 +61,14 @@ function App() {
       window.location.pathname = "/";
     }
   }
+  
+  const toFriends = () => {
+    if (isAuth) {
+      window.location.pathname = "/Friends";
+    } else {
+      window.location.pathname = "/";
+    }
+  }
 
   useEffect(() => {auth.onAuthStateChanged(user => {
     if (user) {
@@ -70,13 +78,7 @@ function App() {
         console.log(auth);
     }   
     })}, [])
-  const toGenerateProgram = () => {
-    if (isAuth) {
-      window.location.pathname = "/GeneratedProgram";
-    } else {
-      window.location.pathname = "/";
-    }
-  }
+
 
   return (
     <Router>
@@ -86,7 +88,7 @@ function App() {
           <li onClick={toCreatePrograms}>Create Programs</li>
           <li onClick={toViewPrograms}>View Programs</li>
           <li onClick={toSeeProgression}>See Progression</li>
-          <li onClick={toGenerateProgram}>Generate Training Program</li>
+          <li onClick={toFriends}>Friends</li>
         </ul>
         <a onClick={goToProfile} className="Profile">
             <img
