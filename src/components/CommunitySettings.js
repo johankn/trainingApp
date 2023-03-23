@@ -121,12 +121,7 @@ function CommunitySettings({ communityToEdit }) {
     }
 
     function selectMember(newMember) {
-        const newMembers = [];
-        members.forEach(member => {
-            if (member !== newMember) {
-                newMembers = [...newMembers, member];
-            }
-        })
+        const newMembers = [...members, newMember];
 
         setMembers(newMembers);
     }
@@ -165,6 +160,7 @@ function CommunitySettings({ communityToEdit }) {
             if (!admins.includes(auth.currentUser.uid)) {
                 admins.push(auth.currentUser.uid);
             }
+
             const data = await getDocs(collection(db, "communities"));
             const communities = data.docs.map((doc) => ({
                 community: doc.data(),
