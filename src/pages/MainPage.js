@@ -2,17 +2,23 @@ import "../resources/mainPage.css";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { auth, db } from "../firebase-config";
-import { getDocs, collection } from "firebase/firestore";
+import { getDocs, collection, query, where, addDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import ChooseCommunityCarousel from "../components/ChooseCommunityCarousel";
 
-function MainPage() {
+function MainPage( props) {
+    const friendRequestsCollectionRef = collection(db, "friendRequests");
   const navigate = useNavigate();
   const postCollectionRef = collection(db, "posts");
   const [posts, setPosts] = useState([]);
   const communityCollectionRef = collection(db, "communities");
   const [communities, setCommunities] = useState([]);
   const [chosenComunity, setChosenComunity] = useState();
+
+  const [shownPosts, setShownPosts] = useState();
+  const [friends, setFriends] = useState([]);
+
+  const [hasLoaded, setSasLoaded] = useState(false);
 
   const getPosts = async () => {
     try {
@@ -21,17 +27,27 @@ function MainPage() {
         ...doc.data(),
         id: doc.id,
       }));
-      setPosts(posts);
+
+      console.log(posts);
+      console.log(communities);
+
+      const feedposts = [];
+      posts.forEach(post => {
+        communities.forEach(community => {
+            if (community.community.sharedPosts.includes(post.id) && !feedposts.includes(post.id)) {
+                feedposts.push(post);
+            }
+        })
+      })
+
+      console.log('potato');
+      console.log(feedposts);
+      setPosts(feedposts);
     } catch (err) {
       console.log(err);
     }
   };
-
-  useEffect(() => {
-    console.log("Effect called");
-    getPosts();
-  }, []);
-
+  
   function toCreatePost() {
     navigate("/createpost");
   }
@@ -40,24 +56,115 @@ function MainPage() {
     navigate("/CreateCommunity");
   }
 
-  React.useEffect( () => {auth.onAuthStateChanged(user => {
-    if (user) {    
+  const getFriends = async () => {
+    try {
+        console.log('hello');
+        const data = await getDocs(collection(db, 'users'));
+        const users = data.docs.map((doc) => ({
+            user: doc.data(),
+            id: doc.id,
+          }));
+
+          setFriends(users.find(user => user.id === auth.currentUser.uid).user.friends);
+          
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  React.useEffect(() => {auth.onAuthStateChanged(user => {
+    if (user) {   
         getUserList();
-        console.log(communities);
-        
+        getFriends();
+        getPosts(); 
+        setSasLoaded(true);
     }   
     })}, []) 
 
-    // React.useEffect(() => {
-    //     const data = getDocs(postCollectionRef);
-    //     const posts = data.docs.map((doc) => ({
-    //         ...doc.data(),
-    //         id: doc.id,
-    //       }));
+    function editCommunity() {
+        props.setSelectedCommunity(chosenComunity);
+        navigate("/CreateCommunity");
+    }
 
-    //       const newPosts = posts.find(post => chosenComunity.community.sharedPosts.includes(post.id));
-    //       setPosts(newPosts);
-    // }, [chosenComunity])
+    React.useEffect(() => {
+        if (chosenComunity) {
+            getCommunityPosts();
+        }
+        
+    }, [chosenComunity])
+
+    const getCommunityPosts = async () => {
+        try {
+          const data = await getDocs(postCollectionRef);
+          const posts = data.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          }));
+
+          const communityPosts = [];
+          posts.forEach((post) => {
+            if (chosenComunity.community.sharedPosts.includes(post.id)) {
+                communityPosts.push(post);
+            }
+        }
+        );
+        setPosts(communityPosts);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+
+      const handleSendFriendRequest = async (userId) => {
+        try {
+          // Check if a friend request has already been sent
+          const existingRequestQuery = query(
+            friendRequestsCollectionRef,
+            where("senderId", "==", auth.currentUser.uid),
+            where("receiverId", "==", userId)
+          );
+          const existingRequest = await getDocs(existingRequestQuery);
+          if (!existingRequest.empty) {
+            window.alert("Friend request already sent");
+            return;
+          }
+    
+          // Create a new friend request document
+          const newRequest = {
+            senderId: auth.currentUser.uid,
+            receiverId: userId,
+            status: "requested",
+          };
+          await addDoc(friendRequestsCollectionRef, newRequest);
+          window.alert("Friend request sent!")
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
+    React.useEffect(() => {
+        setShownPosts(
+            posts.map((post) => (
+                <div className="post-container" key={post.id}>
+                  <div className="post-image">
+                    <Link to={`/post/${post.id}`}>
+                      <img src={post.image} alt={post.username} />
+                    </Link>
+                  </div>
+                  <div className="post-details">
+                    <h2 className="post-title">{post.title}</h2>
+                    <p className="post-user">Posted by {post.username}</p>
+                    {((post.program.author.id !== auth.currentUser.uid) && hasLoaded && (!friends.includes(post.program.author.id))) ?
+                        (<button className="post-user" onClick={() => handleSendFriendRequest(post.program.author.id)}>
+                            Add {post.username} as a friend 
+                        </button>) 
+                        :
+                        (<br></br>)}
+                  </div>
+                </div>
+            ))
+        );
+    }, [posts])
+
 
   const getUserList = async () => {
     try {
@@ -75,8 +182,6 @@ function MainPage() {
             }}
         );
           
-
-
     } catch (error) {
       console.log(error);
     }
@@ -102,6 +207,8 @@ function MainPage() {
         <p>
             {chosenComunity.community.description}
         </p>
+            {(chosenComunity.community.admins.includes(auth.currentUser.uid)) && 
+            <button className="create-post-button" onClick={editCommunity}> Community settings </button>}
         </div>
         ) : (
             <br></br>
@@ -110,19 +217,7 @@ function MainPage() {
       </div>
       <div className="feed-container">
         {<ChooseCommunityCarousel communities={communities} setUserCommunity={setChosenComunity} />}
-        {posts.map((post) => (
-          <div className="post-container" key={post.id}>
-            <div className="post-image">
-              <Link to={`/post/${post.id}`}>
-                <img src={post.image} alt={post.username} />
-              </Link>
-            </div>
-            <div className="post-details">
-              <h2 className="post-title">{post.title}</h2>
-              <p className="post-user">Posted by {post.username}</p>
-            </div>
-          </div>
-        ))}
+        {shownPosts}
       </div>
     </div>
   );

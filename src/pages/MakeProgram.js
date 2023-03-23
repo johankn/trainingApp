@@ -25,8 +25,8 @@ function MakeProgram({ currentProgram, setcurrentProgram, isAuth }) {
 
   return (
     <div>
-      {selectedButton ? (
-        selectedButton === "makeOwnProgram" ? (
+      {(selectedButton || currentProgram) ? (
+        (selectedButton === "makeOwnProgram" || currentProgram) ? (
           <TrainingDay
             currentProgram={currentProgram}
             setcurrentProgram={setcurrentProgram}
