@@ -109,8 +109,8 @@ function TrainingProgram( currentProgram, setcurrentProgram) {
       alert("You must set a title for the training prgram.");
       return;
     }
-
-    if (currentProgram) {
+    console.log(currentProgram.currentProgram);
+    if (currentProgram.currentProgram) {
         setDoc(
             doc(db, 'trainingPrograms', currentProgram.currentProgram.id),
             {

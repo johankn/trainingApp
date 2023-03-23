@@ -27,17 +27,27 @@ function MainPage( props) {
         ...doc.data(),
         id: doc.id,
       }));
-      setPosts(posts);
+
+      console.log(posts);
+      console.log(communities);
+
+      const feedposts = [];
+      posts.forEach(post => {
+        communities.forEach(community => {
+            if (community.community.sharedPosts.includes(post.id) && !feedposts.includes(post.id)) {
+                feedposts.push(post);
+            }
+        })
+      })
+
+      console.log('potato');
+      console.log(feedposts);
+      setPosts(feedposts);
     } catch (err) {
       console.log(err);
     }
   };
-
-  useEffect(() => {
-    console.log("Effect called");
-    getPosts();
-  }, []);
-
+  
   function toCreatePost() {
     navigate("/createpost");
   }
@@ -63,9 +73,10 @@ function MainPage( props) {
   };
 
   React.useEffect(() => {auth.onAuthStateChanged(user => {
-    if (user) {    
+    if (user) {   
         getUserList();
         getFriends();
+        getPosts(); 
         setSasLoaded(true);
     }   
     })}, []) 

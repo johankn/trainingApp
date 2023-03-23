@@ -34,6 +34,7 @@ function Registration() {
       username: username,
       email: email,
       id: uid,
+      friends: []
     });
   }
 
@@ -42,6 +43,26 @@ function Registration() {
   const toLogin = () => {
     navigate("/");
   }
+
+  const getPublicCommunity = async (uid) => {
+    try {
+      const data = await getDocs(collection(db, 'communities'));
+      const users = data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      const pubicCommunity = users.find(user => user.id === 'Public');
+
+      pubicCommunity.members.push(uid);
+      await setDoc(doc(db, 'communities', "Public"),
+        pubicCommunity
+      );
+      //console.log(friends);
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const onRegister = (e) => {
     e.preventDefault();
@@ -52,6 +73,7 @@ function Registration() {
         const id = user.uid;
         console.log(id);
         addUserToDB(id);
+        getPublicCommunity(id);
 
         const update = {
           displayName: username,
