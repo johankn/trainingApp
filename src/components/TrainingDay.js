@@ -88,11 +88,12 @@ function TrainingProgram( currentProgram, setcurrentProgram) {
 
   const exerciseList = trainingDays[currentDayIndex].exercises.map(
     (exercise) => (
-      <div key={exercise.id}>
-        <h3>{exercise.name}</h3>
-        <p>{`Sets: ${exercise.sets} Reps: ${exercise.reps}`}</p>
-        <button onClick={() => handleDelete(exercise.id)}>Delete</button>
-      </div>
+      <tr key={exercise.id}>
+        <td>{exercise.name}</td>
+        <td>{`Sets: ${exercise.sets}`}</td>
+        <td>{`Reps: ${exercise.reps}`}</td>
+        <td><button onClick={() => handleDelete(exercise.id)}>Delete</button></td>
+      </tr>
     )
   );
 
@@ -267,7 +268,18 @@ function TrainingProgram( currentProgram, setcurrentProgram) {
         <button onClick={makeProgram} className="training-submit">
           Save Program
         </button>
-        <div>{exerciseList}</div>
+        <br></br>
+        <br></br>
+        <div className="program_table_div">
+            <table className="program_table">
+                <thead>
+                    Chosen exercises:
+                </thead>
+                <tbody>
+                   {exerciseList} 
+                </tbody>
+            </table>    
+        </div>
       </div>
     </div>
   );
