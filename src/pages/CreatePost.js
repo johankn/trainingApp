@@ -139,9 +139,9 @@ function CreatePost(){
       }; 
 
       function makeTable(setstate, communities, name, selecterFunc, deselectFunc) {
-        setstate(<div>
+        setstate(<div className="program_table_div">
                 <h3> {name}: </h3>
-                    <table>
+                    <table className="program_table">
                         <thead>
                             Groups:
                         </thead>
@@ -172,7 +172,7 @@ function CreatePost(){
     }
 
     return(
-        <div>
+        <div className="program_table_div">
             <ChooseProgramCarousel
             trainingPrograms={trainingPrograms}
             setUserPrograms={setUserPrograms}

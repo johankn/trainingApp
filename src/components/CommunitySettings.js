@@ -203,9 +203,10 @@ function CommunitySettings({ communityToEdit }) {
 
     function makeTable(setstate, people, checked, name, selecterFunc, deselectFunc) {
         console.log(checked);
-        setstate(<div>
+        setstate((people.length > 0) &&
+            <div className="program_table_div">
                 <h3> {name}: </h3>
-                    <table>
+                    <table className="program_table">
                         <thead>
                             Friends
                         </thead>
